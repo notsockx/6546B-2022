@@ -56,7 +56,7 @@ void ControlDrivetrain() {
 
 // -- START OF INTAKE FUNCTIONS -- //
 void ToggleIntake() {
-  if(intake.isSpinning()) {
+  if(intake.velocity(pct) != 0) {
     intake.stop(coast);
   }
   else {

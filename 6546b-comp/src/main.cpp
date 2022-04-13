@@ -33,13 +33,14 @@
 
 #include "vex.h"
 #include "math.h"
+#include "robot-config.h"
 
 using namespace vex;
 
 competition Competition;
 
 void y_direction(double rot) {
-  motor_group drivemotors(Motor9, Motor10, Motor14, Motor15);
+ 
   rotationLeft.setPosition(0, turns);
   rotationRight.setPosition(0, turns);
   while (1) {
@@ -89,49 +90,25 @@ void usercontrol(void) {
   bool openBranch = false;
   int ring_counter = 0; 
 
-  motor_group fourbar(Motor16, Motor17);
+  
   intake.setVelocity(40, percent);
   fourbar.setVelocity(70, percent);
   // rotationRight.setPosition(0, degrees);
-  motor_group leftside(Motor14, Motor15);
-  motor_group rightside(Motor9, Motor10);
+  
   rotationBar.setPosition(0, degrees);
   // User control code here, inside the loop
   while (1) {
     Brain.Screen.clearScreen();
     Brain.Screen.setCursor(1, 1);
-    // Brain.Screen.print(rotationRight.position(degrees));
+
     double leftaxisx = Controller1.Axis4.position();
     double leftaxisy = Controller1.Axis3.position();
     double rightaxisx = Controller1.Axis1.position();
     double rightaxisy = Controller1.Axis2.position();
-
-    // double left_hyp = sqrt((leftaxisx * leftaxisx) + (leftaxisy * leftaxisy));
-    // double right_hyp = sqrt((rightaxisx * rightaxisx) + (rightaxisy * rightaxisy));
     
     double leftspeed = 0.000488 * abs(leftaxisy) * abs(leftaxisy) * abs(leftaxisy);
     double rightspeed = (sqrt((rightaxisx * rightaxisx) + (rightaxisy * rightaxisy)))/4;
-    // double lSpeed = leftaxisy + rightaxisx;
-    // double rSpeed = leftaxisy - rightaxisx;
-
-
-    // leftside.setVelocity(leftspeed, percent);
-    // rightside.setVelocity(rightspeed, percent);
-
-    //drivebase
-    // if(Controller1.Axis3.position() > 0) {
-    //   leftside.spin(forward);
-    // }
-    // else if(Controller1.Axis3.position() < 0) {
-    //   leftside.spin(reverse);
-    // }
-
-    // if(Controller1.Axis2.position() > 0) {
-    //   rightside.spin(forward);
-    // }
-    // else if(Controller1.Axis2.position() < 0) {
-    //   rightside.spin(reverse);
-    // }
+  
     if(leftaxisy != 0) {
       leftside.setVelocity(leftspeed, percent);
       rightside.setVelocity(leftspeed,percent);
@@ -167,24 +144,6 @@ void usercontrol(void) {
       leftside.stop(brake);
     }
 
-
-
-    //intake
-    // Controller1.ButtonRight.released(void(intakeOn) (on = true));
-
-    // if button isn't pressed and counter isn't 0
-      // released = true
-      // pressed = false
-      // counter = - val
-    
-    // else if button pressed
-      // counter = number
-      // pressed = true
-      // released = false
-    
-    // else if button isn't pressed
-      // nothing
-
     if(Controller1.ButtonRight.pressing() == false && counter != 0) {
       released = true;
       pressed = false;
@@ -209,28 +168,6 @@ void usercontrol(void) {
       intake.setVelocity(40, percent);
       intake.spin(forward);
     }
-
-    
-  //   if(Controller1.ButtonRight.pressing()==true){
-  //     pressed = true;
-  //     released = false;
-  //   }
-  //   else if(Controller1.ButtonRight.pressing()==false){
-  //     pressed = false;
-  //     released = true;
-  //   }
-    
-  //   if (released==true){
-  //     if(on == true) {
-  //     intake.spin(forward);
-  //     released = false;
-  //   }
-  //   else if(on == false) {
-  //     intake.stop();
-  //     released = false;
-  //   }
-  // }
-      
 
     //4bar
     if(Controller1.ButtonL1.pressing()) {
@@ -315,23 +252,11 @@ void usercontrol(void) {
       }
     }
 
-    // This is the main execution loop for the user control program.
-    // Each time through the loop your program should update motor + servo
-    // values based on feedback from the joysticks.
-
-    // ........................................................................
-    // Insert user code here. This is where you use the joystick values to
-    // update your motors, etc.
-    // ........................................................................
-
-    wait(20, msec); // Sleep the task for a short amount of time to
-                    // prevent wasted resources.
+     vex::this_thread::sleep_for(10);  // dont hog cpu
   }
 }
 
-//
-// Main will set up the competition functions and callbacks.
-//
+// -- DO NOT CHANGE -- //
 int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);

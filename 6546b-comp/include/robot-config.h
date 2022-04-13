@@ -2,8 +2,8 @@ using namespace vex;
 using signature = vision::signature;
 
 // basic vex devices
-brain Brain;
-controller Controller1 = controller(primary);
+extern brain Brain;
+extern controller Controller1;
 
 // motors
 extern motor twobar;

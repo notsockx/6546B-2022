@@ -1,9 +1,9 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       VEX                                                       */
+/*    Author:       Chloe Dimmock, Emilio Orcullo                             */
 /*    Created:      Thu Sep 26 2019                                           */
-/*    Description:  Competition Template                                      */
+/*    Description:  Team 6546B main competition code                          */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 
@@ -36,22 +36,7 @@
 
 using namespace vex;
 
-// A global instance of competition
 competition Competition;
-
-// define your global instances of motors and other devices here
-
-/*---------------------------------------------------------------------------*/
-/*                          Pre-Autonomous Functions                         */
-/*                                                                           */
-/*  You may want to perform some actions before the competition starts.      */
-/*  Do them in the following function.  You must return from this function   */
-/*  or the autonomous and usercontrol tasks will not be started.  This       */
-/*  function is only called once after the V5 has been powered on and        */
-/*  not every time that the robot is disabled.                               */
-/*---------------------------------------------------------------------------*/
-
-//functions
 
 void y_direction(double rot) {
   motor_group drivemotors(Motor9, Motor10, Motor14, Motor15);
@@ -73,9 +58,6 @@ void y_direction(double rot) {
   rotationLeft.setPosition(0, turns);
   rotationRight.setPosition(0, turns);
 }
-//set veloity = average - degree if velocity = 0, brake.
-
-//functions
 
 void pre_auton(void) {
   rotationLeft.setPosition(0, turns);
@@ -90,46 +72,13 @@ void pre_auton(void) {
   // Example: clearing encoders, setting servo positions, ...
 }
 
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                              Autonomous Task                              */
-/*                                                                           */
-/*  This task is used to control your robot during the autonomous phase of   */
-/*  a VEX Competition.                                                       */
-/*                                                                           */
-/*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
-
 void autonomous(void) {
   //white
   y_direction(0.5);
   twobar.spinFor(forward, 1, turns);
   intake.spin(forward);
   y_direction(2);
-  
-  // ..........................................................................
-  // Insert autonomous user code here.
-  // ..........................................................................
 }
-
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                              User Control Task                            */
-/*                                                                           */
-/*  This task is used to control your robot during the user control phase of */
-/*  a VEX Competition.                                                       */
-/*                                                                           */
-/*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
-//void intakeOn(bool on) {
-    // if(on == true) {
-    //   intake.setVelocity(40, percent);
-    //   intake.spin(forward);
-    // }
-    // else if(on == false) {
-    //   intake.stop();
-    // }
-//}
 
 void usercontrol(void) {
   int counter = 0;
@@ -385,12 +334,11 @@ void usercontrol(void) {
 //
 int main() {
   // Set up callbacks for autonomous and driver control periods.
-  pre_auton();
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 
   // Run the pre-autonomous function.
-  
+  pre_auton();
 
   // Prevent main from exiting with an infinite loop.
   while (true) {

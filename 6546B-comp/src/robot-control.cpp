@@ -34,12 +34,12 @@ void ControlDrivetrain() {
     vTarget = vTarget * ( int( vDrive ) / abs( int( vDrive )));
 
     if( vTurn >= 0 ) {
-      rightside.spin(fwd, vTarget - vTurn, pct);
+      rightside.spin(fwd, vTarget - vTurn*2, pct);
       leftside.spin(fwd, vTarget, pct);
     }
     else {
       rightside.spin(fwd, vTarget, pct);
-      leftside.spin(fwd, vTarget - vTurn, pct);
+      leftside.spin(fwd, vTarget - vTurn*2, pct);
     }
     
 

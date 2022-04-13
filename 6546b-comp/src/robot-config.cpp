@@ -14,6 +14,9 @@ using code = vision::code;
 
 // user defined config
 // setup variables, etc.
+double intakespeed = 40;
+double fourbarspeed = 70;
+double twobarspeed = 40;
 
 
 // basic vex devices

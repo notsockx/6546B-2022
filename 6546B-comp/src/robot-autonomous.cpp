@@ -15,7 +15,6 @@ using namespace vex;
 
 // please include comments on your code
 void y_direction(double rot) {
- 
   rotationLeft.setPosition(0, turns);
   rotationRight.setPosition(0, turns);
   while (1) {

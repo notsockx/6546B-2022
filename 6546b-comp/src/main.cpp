@@ -33,7 +33,6 @@
 
 #include "vex.h"
 #include "math.h"
-#include "robot-config.h"
 #include "robot-control.h"
 #include "robot-autonomous.h"
 

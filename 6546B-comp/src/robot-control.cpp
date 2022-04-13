@@ -21,19 +21,21 @@ void ControlDrivetrain() {
   double vTarget;
   
   while(1) {
-    // scale axis 3 + 4 from -100 to 100 to convert to pct
+    // calculate drive velocity by scaling axis 3 to -100% - 100%
     vDrive = Controller1.Axis3.value() * 100/127;
-    vTurn = Controller1.Axis4.value() * 100/127;
+    // calculate turn velocity by scaling axis 4 to -100% - 100%
+    vTurn = Controller1.Axis4.value() * 100/127; 
+    // vTarget is just hypotenuse of vDrive and vTurn
     vTarget = sqrt(pow(vDrive, 2) + pow(vTurn, 2));
 
-    if(vDrive > 0) {
-      rightside.spin(fwd, (vDrive - vTurn)/2, pct);
-      leftside.spin(fwd, (vDrive + vTurn)/2, pct);
-    }
-    else {
-      rightside.spin(fwd, (vDrive + vTurn)/2, pct);
-      leftside.spin(fwd, (vDrive - vTurn)/2, pct);
-    }
+    if(vTarget > 100) { vTarget = 100; }  // set vTaget to 100 if greater than 100
+
+    // get sign of vDrive and apply to vTarget
+    vTarget = vTarget * ( int( vDrive ) / abs( int( vDrive )));
+
+    rightside.spin(fwd, vTarget - vTurn, pct);
+    leftside.spin(fwd, vTarget + vTurn, pct);
+    
     vex::this_thread::sleep_for(10);
   }
 }
@@ -45,7 +47,7 @@ void ToggleIntake() {
     intake.stop(coast);
   }
   else {
-    intake.spin(fwd, 40, pct);
+    intake.spin(fwd, intakespeed, pct);
   }
 }
 
@@ -55,10 +57,10 @@ void ToggleIntake() {
 void ControlFourbar() {
   while(true) {
     if(Controller1.ButtonL1.pressing()) {
-      fourbar.spin(forward, 70, percent);
+      fourbar.spin(forward, fourbarspeed, percent);
     }
     else if(Controller1.ButtonL2.pressing()) {
-      fourbar.spin(reverse, 70, percent);
+      fourbar.spin(reverse, fourbarspeed, percent);
     }
     else {
       fourbar.stop(hold);
@@ -73,10 +75,10 @@ void ControlFourbar() {
 void ControlTwobar() {
   while(true) {
     if(Controller1.ButtonR1.pressing()) {
-      twobar.spin(reverse, 40, percent);
+      twobar.spin(reverse, twobarspeed, percent);
     }
     else if(Controller1.ButtonR2.pressing()) {
-      twobar.spin(forward, 40, percent);
+      twobar.spin(forward, twobarspeed, percent);
     }
     else {
       twobar.stop(hold);

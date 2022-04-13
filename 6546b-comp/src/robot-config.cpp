@@ -12,6 +12,10 @@ using namespace vex;
 using signature = vision::signature;
 using code = vision::code;
 
+// user defined config
+// setup variables, etc.
+
+
 // basic vex devices
 brain Brain;
 controller Controller1 = controller(primary);

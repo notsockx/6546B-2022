@@ -33,16 +33,22 @@ void ControlDrivetrain() {
     // get sign of vDrive and apply to vTarget
     vTarget = vTarget * ( int( vDrive ) / abs( int( vDrive )));
 
-    if( vTurn >= 0 ) {
+    if( vTurn >= 0 && vDrive >= 0 ) {  // quadrant 1
       rightside.spin(fwd, vTarget - vTurn*2, pct);
       leftside.spin(fwd, vTarget, pct);
     }
-    else {
+    else if( vTurn < 0 && vDrive >= 0 ) {  // quadrant 2
       rightside.spin(fwd, vTarget, pct);
       leftside.spin(fwd, vTarget - vTurn*2, pct);
     }
-    
-
+    else if( vTurn >= 0 && vDrive < 0 ) {  // quadrant 3
+      rightside.spin(fwd, vTarget, pct);
+      leftside.spin(fwd, vTarget - vTurn*2, pct);
+    }
+    else {  // quadrant 4
+      rightside.spin(fwd, vTarget - vTurn*2, pct);
+      leftside.spin(fwd, vTarget, pct);
+    }
     vex::this_thread::sleep_for(10);
   }
 }

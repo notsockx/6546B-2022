@@ -47,6 +47,7 @@ void pre_auton(void) {
   // set positions to zero
   rotationLeft.setPosition(0, turns);
   rotationRight.setPosition(0, turns);
+  inertial13.setHeading(0, degrees);
 
   // reset pneumatics
   ring_clamp.set(false);
@@ -56,10 +57,15 @@ void pre_auton(void) {
 
 void autonomous(void) {
   // white route
-  y_direction(0.5);
-  twobar.spinFor(forward, 1, turns);
   intake.spin(forward);
+  wait(1, sec);
   y_direction(2);
+  wait(1,sec);
+  wheel_pivot(0.5, -45, true, 50);
+  wait(1, sec);
+  normal_turning(-45);
+  wait(1,sec);
+  wheel_pivot(0.5, -45, true, 100);
 }
 
 void usercontrol(void) {

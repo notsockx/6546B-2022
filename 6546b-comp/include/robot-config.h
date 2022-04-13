@@ -33,7 +33,7 @@ extern gps DriveGPS;
 extern rotation rotationRight;
 extern rotation rotationLeft;
 extern inertial inertial13;
-extern rotation rotationBary;
+extern rotation rotationBar;
 
 // functions
 void vexcodeInit( void );

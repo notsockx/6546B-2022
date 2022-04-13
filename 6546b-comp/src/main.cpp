@@ -17,7 +17,7 @@
 // rotationLeft         rotation      12              
 // inertial13           inertial      13              
 // GPS18                gps           18              
-// intake               motor         19              
+// intake          .i,anmrfstkiesaftrv gm vp     motor         19              
 // front                digital_out   B               
 // down_clamp           digital_out   C               
 // ring_clamp           digital_out   D               

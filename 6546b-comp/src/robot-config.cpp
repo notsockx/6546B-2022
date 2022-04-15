@@ -28,16 +28,18 @@ motor twobar = motor(PORT6, ratio18_1, false);
 motor intake = motor(PORT19, ratio6_1, false);
 motor Motor16 = motor(PORT16, ratio36_1, true);
 motor Motor17 = motor(PORT17, ratio36_1, false);
-motor Motor14 = motor(PORT14, ratio6_1, true);
-motor Motor15 = motor(PORT15, ratio6_1, true);
-motor Motor9 = motor(PORT9, ratio6_1, false);
-motor Motor10 = motor(PORT10, ratio6_1, false);
+motor DriveLeft1 = motor(PORT10, ratio6_1, false);
+motor DriveLeft2 = motor(PORT9, ratio6_1, true);
+motor DriveLeft3 = motor(PORT8, ratio6_1, false);
+motor DriveRight1 = motor(PORT11, ratio6_1, true);
+motor DriveRight2 = motor(PORT12, ratio6_1, false);
+motor DriveRight3 = motor(PORT13, ratio6_1, true);
 
 // motor groups
 motor_group fourbar(Motor16, Motor17);
-motor_group leftside(Motor14, Motor15);
-motor_group rightside(Motor9, Motor10);
-motor_group drivemotors(Motor9, Motor10, Motor14, Motor15);
+motor_group leftside(DriveLeft1, DriveLeft2, DriveLeft3);
+motor_group rightside(DriveRight1, DriveRight2, DriveRight3);
+motor_group drivemotors(DriveLeft1, DriveLeft2, DriveLeft3, DriveRight1, DriveRight2, DriveRight3);
 
 // digital out
 digital_out front = digital_out(Brain.ThreeWirePort.B);

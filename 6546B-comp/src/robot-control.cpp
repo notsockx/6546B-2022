@@ -115,7 +115,7 @@ void ToggleBackclamp() {
   // modified to just be X button
   // i asked uddalak in discord vc lol
   down_clamp.set(!down_clamp.value());
-  ring_clamp.set(!down_clamp.value());
+  ring_clamp.set(down_clamp.value());
 }
 
 void ResetBackclamp() {
@@ -126,16 +126,6 @@ void ResetBackclamp() {
 
 // -- START OF RINGCLAMP FUNCTIONS -- //
 void ToggleRingclamp() {
-  ring_branch.set(!ring_branch);  // pretty sure this does the exact same thing
-  //bool openBranch = false;
-  //int ring_counter = 0;
-  //if(Controller1.ButtonA.pressing() == false && ring_counter != 0) {
-  //  ring_counter = 0;
-  //  openBranch = !openBranch;
-  //}
-  //else if(Controller1.ButtonA.pressing()) {
-  //  ring_counter = 1;
-  //}
-  //ring_branch.set(!openBranch);
+  ring_branch.set(!ring_branch);
 }
 // -- END OF RINGCLAMP FUNCTIONS -- //

@@ -29,34 +29,37 @@ void ControlDrivetrain() {
   while(1) {
     x = Controller1.Axis4.value() * 100 / 127;
     y = Controller1.Axis3.value() * 100 / 127;
+
+    rightside.spin(fwd, (x - y)/2, pct);
+    leftside.spin(fwd, (x + y)/2, pct);
     
     // right joystick for speed
     //v = Controller1.Axis1.value() * 100 / 127;
 
     // left joystick magnitude for speed
-    v = sqrt(pow(x, 2) + pow(y, 2));
-    if(v > 100) { v = 100; }
+    // v = sqrt(pow(x, 2) + pow(y, 2));
+    // if(v > 100) { v = 100; }
 
-    if( x == 0 ) { theta = 90; }
-    else { theta = 180 - 2*atan(y/x); }
+    // if( x == 0 ) { theta = 90; }
+    // else { theta = 180 - 2*atan(y/x); }
 
-    if( x >= 0 ) {
-      leftside.setVelocity(v, pct);
-      rightside.setVelocity(v * cos(theta), pct);
-    }
-    else {
-      leftside.setVelocity(v * cos(theta), pct);
-      rightside.setVelocity(v, pct);
-    }
+    // if( x >= 0 ) {
+    //   leftside.setVelocity(v, pct);
+    //   rightside.setVelocity(v * cos(theta), pct);
+    // }
+    // else {
+    //   leftside.setVelocity(v * cos(theta), pct);
+    //   rightside.setVelocity(v, pct);
+    // }
 
-    if( v >= 0 ) {
-      leftside.spin(fwd);
-      rightside.spin(fwd);
-    }
-    else {
-      leftside.spin(reverse);
-      rightside.spin(reverse);
-    }
+    // if( v >= 0 ) {
+    //   leftside.spin(fwd);
+    //   rightside.spin(fwd);
+    // }
+    // else {
+    //   leftside.spin(fwd);
+    //   rightside.spin(fwd);
+    // }
     
     vex::this_thread::sleep_for(10);
   }

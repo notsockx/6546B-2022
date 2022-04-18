@@ -30,8 +30,8 @@ motor Motor16 = motor(PORT16, ratio36_1, true);
 motor Motor17 = motor(PORT17, ratio36_1, false);
 motor Motor14 = motor(PORT14, ratio6_1, true);
 motor Motor15 = motor(PORT15, ratio6_1, true);
-motor Motor9 = motor(PORT9, ratio6_1, false);
-motor Motor10 = motor(PORT10, ratio6_1, false);
+motor Motor9 = motor(PORT9, ratio6_1, true);
+motor Motor10 = motor(PORT10, ratio6_1, true);
 
 // motor groups
 motor_group fourbar(Motor16, Motor17);

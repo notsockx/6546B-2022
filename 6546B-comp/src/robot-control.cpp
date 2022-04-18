@@ -16,42 +16,25 @@ using namespace vex;
 // -- START OF DRIVETRAIN FUNCTIONS -- //
 void ControlDrivetrain() {
   // setup
-  double vDrive;
-  double vTurn;
-  double vTarget;
+  double x;
+  double y;
+  double v;
+  double theta;
   
   while(1) {
-    // calculate drive velocity by scaling axis 3 to -100% - 100%
-    vDrive = Controller1.Axis3.value() * 100/127;
-    // calculate turn velocity by scaling axis 4 to -100% - 100%
-    vTurn = Controller1.Axis4.value() * 100/127; 
-    // vTarget is just hypotenuse of vDrive and vTurn
-    vTarget = sqrt(pow(vDrive, 2) + pow(vTurn, 2));
+    x = Controller1.Axis4.value() * 100 / 127;
+    y = Controller1.Axis3.value() * 100 / 127;
 
-    if(vTarget > 100) { vTarget = 100; }  // set vTaget to 100 if greater than 100
+    if( x == 0 ) { theta = 0; }
+    else { theta = atan(y/x); }
 
-    // get sign of vDrive and apply to vTarget
-    vTarget = vTarget * ( int( vDrive ) / abs( int( vDrive )));
+    v = sqrt(pow(x, 2) + pow(y, 2));
+    if(v >= 100) { v = 100; }
+    v = v * (-1 * int( y >= 0 ));
 
-    rightside.spin(fwd, (vDrive - vTurn)/2, pct);
-    leftside.spin(fwd, (vDrive + vTurn)/2, pct);
+    leftside.spin(fwd, v, pct);
+    rightside.spin(fwd, v * cos(2*theta), pct);
 
-    // if( vTurn >= 0 && vDrive >= 0 ) {  // quadrant 1
-    //   rightside.spin(fwd, vTarget - vTurn*2, pct);
-    //   leftside.spin(fwd, vTarget, pct);
-    // }
-    // else if( vTurn < 0 && vDrive >= 0 ) {  // quadrant 2
-    //   rightside.spin(fwd, vTarget, pct);
-    //   leftside.spin(fwd, vTarget - vTurn*2, pct);
-    // }
-    // else if( vTurn >= 0 && vDrive < 0 ) {  // quadrant 3
-    //   rightside.spin(fwd, vTarget, pct);
-    //   leftside.spin(fwd, vTarget - vTurn*2, pct);
-    // }
-    // else {  // quadrant 4
-    //   rightside.spin(fwd, vTarget - vTurn*2, pct);
-    //   leftside.spin(fwd, vTarget, pct);
-    //}
     vex::this_thread::sleep_for(10);
   }
 }
@@ -115,7 +98,7 @@ void ToggleBackclamp() {
   // modified to just be X button
   // i asked uddalak in discord vc lol
   down_clamp.set(!down_clamp.value());
-  ring_clamp.set(!down_clamp.value());
+  ring_clamp.set(down_clamp.value());
 }
 
 void ResetBackclamp() {
@@ -126,16 +109,6 @@ void ResetBackclamp() {
 
 // -- START OF RINGCLAMP FUNCTIONS -- //
 void ToggleRingclamp() {
-  ring_branch.set(!ring_branch);  // pretty sure this does the exact same thing
-  //bool openBranch = false;
-  //int ring_counter = 0;
-  //if(Controller1.ButtonA.pressing() == false && ring_counter != 0) {
-  //  ring_counter = 0;
-  //  openBranch = !openBranch;
-  //}
-  //else if(Controller1.ButtonA.pressing()) {
-  //  ring_counter = 1;
-  //}
-  //ring_branch.set(!openBranch);
+  ring_branch.set(!ring_branch);
 }
 // -- END OF RINGCLAMP FUNCTIONS -- //

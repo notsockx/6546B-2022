@@ -59,13 +59,8 @@ void autonomous(void) {
   // white route
   intake.spin(forward);
   wait(1, sec);
-  y_direction(2);
-  wait(1,sec);
-  wheel_pivot(0.5, -45, true, 50);
-  wait(1, sec);
-  normal_turning(-45);
-  wait(1,sec);
-  wheel_pivot(0.5, -45, true, 100);
+  y_direction(2.5, 30);
+  // normal_turning(45);
 }
 
 void usercontrol(void) {

@@ -19,13 +19,20 @@ double change_in_inertial;
 // the constant distance whic it takes from end point to mid line
 double second_stage_constant = 0.5;
 
+
+//printing value of drivebase rotation sensors
+double rotation_value = (rotationLeft.position(turns) + rotationRight.position(turns))/2;
+
+
 // move forward / back based on rotations
-void y_direction(double rot) {
+void y_direction(double rot, double initVelo) {
   rotationLeft.setPosition(0, turns);
   rotationRight.setPosition(0, turns);
   while (1) {
   double average = abs(int(rotationLeft.position(turns) + rotationRight.position(turns)))/2;
-    if(average == rot){
+  double velo = initVelo*((rot - average)/rot);
+  drivemotors.setVelocity(velo, percent);
+    if(velo <= 5){
       drivemotors.stop(brake);
       break;
     }
@@ -41,7 +48,8 @@ void y_direction(double rot) {
 }
 
 // pivot on oneside of wheel while driving
-void wheel_pivot(double ratio, double angel, bool directions, double speed) {
+void arc_turning(double ratio, double angel, bool directions, double speed) {
+  angel = -angel;
   if(directions == true) {
     if(angel > 0) {
       leftside.setVelocity(speed, percent);
@@ -68,36 +76,57 @@ void wheel_pivot(double ratio, double angel, bool directions, double speed) {
   double finalAngel = fmod((initAngel + angel), 360);
   while(currentAngel != finalAngel) {
     currentAngel = inertial13.orientation(yaw, degrees);
-    leftside.spin(forward);
-    rightside.spin(forward);
+    if(initAngel > finalAngel) {
+      leftside.spin(forward);
+      rightside.spin(forward);
+      if(currentAngel <= finalAngel) {
+        drivemotors.stop(brake);
+      }
+    }
+    else if(initAngel < finalAngel) {
+      leftside.spin(forward);
+      rightside.spin(reverse);
+      if(currentAngel >= finalAngel) {
+        drivemotors.stop(brake);
+      }
+    }
+    else if(currentAngel == finalAngel) {
+      break;
+    }
   }
-  leftside.stop(brake);
-  rightside.stop(brake);
 }
 
 // center pivot turning
+// void norm_turn(double deg){
+//   double initAngel = inertial13.heading(degrees);
+//   double currentAngel = initAngel;
+//   double finalAngel = fmod(initAngel + deg + 360, 360);
+// }
+
 void normal_turning(double deg) {
   double initAngel = inertial13.heading(degrees);
   double currentAngel = initAngel;
-  double finalAngel = initAngel + deg;
-  if(finalAngel > 360) {
-    finalAngel = finalAngel - 360;
-  }
-  else if(finalAngel < 0) {
-    finalAngel = finalAngel + 360;
-  }
+  double finalAngel = fmod(abs(initAngel + deg + 360), 360);
   while(currentAngel != finalAngel) {
-    if(deg > 0) {
+    currentAngel = inertial13.heading(degrees);
+    //double velo = abs(finalAngel - currentAngel);
+    if(initAngel > finalAngel) {
       leftside.spin(forward);
       rightside.spin(reverse);
+      if(currentAngel <= finalAngel) {
+        drivemotors.stop(brake);
+        break;
+      }
     }
-    else if(deg < 0) {
+    else if(initAngel < finalAngel) {
       leftside.spin(reverse);
       rightside.spin(forward);
+      if(currentAngel >= finalAngel) {
+        drivemotors.stop(brake);
+        break;
+      }
     }
   }
-  leftside.stop(brake);
-  rightside.stop(brake);
 }
 
 //vision alignment

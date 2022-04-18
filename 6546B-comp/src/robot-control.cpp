@@ -20,21 +20,44 @@ void ControlDrivetrain() {
   double y;
   double v;
   double theta;
+
+  leftside.setStopping(coast);
+  rightside.setStopping(coast);
   
+  // left joystick controls angle robot goes towards
+  // right joystick up-down controls robot speed
   while(1) {
     x = Controller1.Axis4.value() * 100 / 127;
     y = Controller1.Axis3.value() * 100 / 127;
+    
+    // right joystick for speed
+    //v = Controller1.Axis1.value() * 100 / 127;
 
-    if( x == 0 ) { theta = 0; }
-    else { theta = atan(y/x); }
-
+    // left joystick magnitude for speed
     v = sqrt(pow(x, 2) + pow(y, 2));
-    if(v >= 100) { v = 100; }
-    v = v * (-1 * int( y >= 0 ));
+    if(v > 100) { v = 100; }
 
-    leftside.spin(fwd, v, pct);
-    rightside.spin(fwd, v * cos(2*theta), pct);
+    if( x == 0 ) { theta = 90; }
+    else { theta = 180 - 2*atan(y/x); }
 
+    if( x >= 0 ) {
+      leftside.setVelocity(v, pct);
+      rightside.setVelocity(v * cos(theta), pct);
+    }
+    else {
+      leftside.setVelocity(v * cos(theta), pct);
+      rightside.setVelocity(v, pct);
+    }
+
+    if( v >= 0 ) {
+      leftside.spin(fwd);
+      rightside.spin(fwd);
+    }
+    else {
+      leftside.spin(reverse);
+      rightside.spin(reverse);
+    }
+    
     vex::this_thread::sleep_for(10);
   }
 }

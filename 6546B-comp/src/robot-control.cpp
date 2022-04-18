@@ -63,6 +63,38 @@ void ControlDrivetrain() {
 }
 // -- END OF DRIVETRAIN FUNCTIONS -- //
 
+
+// -- START OF TWOSTICK DRIVE -- //
+void TwoStick() {
+  while(true) {
+    double leftaxisy = Controller1.Axis3.position();
+    double rightaxisy = Controller1.Axis2.position();
+      
+    double leftspeed = 0.000488 * abs(leftaxisy) * abs(leftaxisy) * abs(leftaxisy);
+    double rightspeed = 0.000488 * abs(rightaxisy * rightaxisy * rightaxisy); 
+    leftside.setVelocity(leftspeed, percent);
+    rightside.setVelocity(rightspeed, percent);
+    if(leftaxisy > 0) {
+      leftside.spin(forward);
+    }
+    else if(leftaxisy < 0) {
+      leftside.spin(reverse);
+    }
+    if(rightaxisy > 0) {
+      rightside.spin(forward);
+    }
+    else if(rightaxisy < 0) {
+      rightside.spin(reverse);
+    }
+
+    if(Controller1.Axis1.position() == 0 && leftaxisy == 0 && rightaxisy == 0 && Controller1.Axis4.position() == 0) {
+      drivemotors.stop(brake);
+    }
+  }
+  vex::this_thread::sleep_for(10);
+ }
+// -- END OF TWOSTICK DRIVE -- //
+
 // -- START OF INTAKE FUNCTIONS -- //
 void ToggleIntake() {
   if(intake.velocity(pct) != 0) {

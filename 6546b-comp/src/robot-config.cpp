@@ -47,6 +47,7 @@ digital_out ring_branch = digital_out(Brain.ThreeWirePort.A);
 
 // sensors
 vision vision7 = vision (PORT7, 50);
+vision vision5 = vision (PORT5, 50);
 gps DriveGPS = gps(PORT18, 0.00, 0.00, mm, 180);
 rotation rotationRight = rotation(PORT8, false);
 rotation rotationLeft = rotation(PORT12, true);

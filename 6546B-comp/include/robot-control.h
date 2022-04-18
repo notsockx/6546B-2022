@@ -4,6 +4,7 @@ using namespace vex;
 extern void ControlDrivetrain(void);
 extern void ControlFourbar(void);
 extern void ControlTwobar(void);
+extern void TwoStick(void);
 
 // functions (run on button press)
 extern void ToggleIntake(void);

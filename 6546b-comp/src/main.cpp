@@ -60,12 +60,13 @@ void autonomous(void) {
   intake.spin(forward);
   wait(1, sec);
   y_direction(2.5, 60);
-  // normal_turning(45);
+  goal_align(true, YELLOW_GOAL);
 }
 
 void usercontrol(void) {
   // start threads
-  vex::thread a(ControlDrivetrain);
+  //vex::thread a(ControlDrivetrain);
+  vex::thread a(TwoStick);
   vex::thread b(ControlFourbar);
   vex::thread c(ControlTwobar);
 

@@ -183,3 +183,5 @@ void goal_align(bool side, vex::vision::signature goal_color) {
 double second_stage_goal_distance(){
   return (second_stage_constant/cos(change_in_inertial));
 }
+
+//waht is the sginature

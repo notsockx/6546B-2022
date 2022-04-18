@@ -17,7 +17,7 @@ using namespace vex;
 double change_in_inertial;
 
 // the constant distance whic it takes from end point to mid line
-double second_stage_constant = 0.5;
+double second_stage_constant = 1.68;
 
 
 //printing value of drivebase rotation sensors

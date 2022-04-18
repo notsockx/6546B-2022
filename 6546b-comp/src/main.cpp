@@ -59,7 +59,7 @@ void autonomous(void) {
   // white route
   intake.spin(forward);
   wait(1, sec);
-  y_direction(2.5, 30);
+  y_direction(2.5, 60);
   // normal_turning(45);
 }
 

@@ -50,6 +50,7 @@ void pre_auton(void) {
   inertial13.setHeading(0, degrees);
 
   // reset pneumatics
+  drivemotors.setVelocity(50, percent);
   ring_clamp.set(false);
   down_clamp.set(true);
   intake.spin(forward);
@@ -57,17 +58,20 @@ void pre_auton(void) {
 
 void autonomous(void) {
   // white route
-  intake.spin(forward);
-  wait(1, sec);
-  // need to test with easing
-  y_direction_ease(2.5, 60);
-  // test arc turn
-  arc_turn(2, 45, true, 70);
-  // need to test easing
-  arc_turn_ease(2, 45, true, 70);
-  // need to test as new function
-  y_direction(-2.5);
-  //goal_align(true, YELLOW_GOAL);
+  y_direction(2.5);
+  goal_align(false, yellow);
+  //second_stage_goal_distance();
+//   intake.spin(forward);
+//   wait(1, sec);
+//   // need to test with easing
+//   y_direction_ease(2.5, 60);
+//   // test arc turn
+//   arc_turn(2, 45, true, 70);
+//   // need to test easing
+//   arc_turn_ease(2, 45, true, 70);
+//   // need to test as new function
+//   y_direction(-2.5);
+//   goal_align(true, yellow);
 }
 
 void usercontrol(void) {

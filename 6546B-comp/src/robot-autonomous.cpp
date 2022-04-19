@@ -240,7 +240,7 @@ void normal_turning(double deg) {
 }
 
 //vision alignment
-void goal_align(bool side, vex::vision::signature goal_color) {
+void goal_align(bool side, vex::color goal_color) {
   int center = 158;
   double original_inertial = inertial13.heading(degrees);
   if(side == true){

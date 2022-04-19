@@ -19,7 +19,7 @@ extern void normal_turning(double);
 // -- END OF NORMAL TURNING -- //
 
 // -- START OF VISION SENSOR SHENAIGAINS -- //
-extern void goal_align(bool, vex::vision::signature);
+extern void goal_align(bool, vex::color);
 // -- END OF VISION SENSOR SHENAIGAINS -- //
 
 // -- START OF ARC TURN -- //

@@ -66,6 +66,30 @@ void ControlDrivetrain() {
 }
 // -- END OF DRIVETRAIN FUNCTIONS -- //
 
+// -- START OF 6 Motor FUNCTIONS -- //
+void ControlDrivetrain_6M() {
+  // setup
+  double x;
+  double y;
+  double v;
+  double theta;
+
+  leftside_6M.setStopping(coast);
+  rightside_6M.setStopping(coast);
+  
+  // left joystick controls angle robot goes towards
+  // right joystick up-down controls robot speed
+  while(1) {
+    x = Controller1.Axis4.value() * 100 / 127;
+    y = Controller1.Axis3.value() * 100 / 127;
+
+    rightside_6M.spin(reverse, (x - y)/2, pct);
+    leftside_6M.spin(fwd, (x + y)/2, pct);
+    vex::this_thread::sleep_for(10);
+  }
+}
+// -- END OF 6 Motor FUNCTIONS -- //
+
 
 // -- START OF TWOSTICK DRIVE -- //
 void TwoStick() {

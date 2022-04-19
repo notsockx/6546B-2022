@@ -84,3 +84,22 @@ void vexcodeInit( void ) {
   wait(50, msec);
   Brain.Screen.clearScreen();
 }
+
+//compat for 6 motor
+motor Motor20_6M = motor(PORT20, ratio6_1, false);
+motor Motor19_6M = motor(PORT19, ratio6_1, true);
+motor Motor18_6M = motor(PORT18, ratio6_1, false);
+
+motor Motor13_6M = motor(PORT13, ratio6_1, true);
+motor Motor12_6M = motor(PORT12, ratio6_1, false);
+motor Motor11_6M = motor(PORT11, ratio6_1, true);
+
+// drivetrain
+motor_group drivemotor_6M(Motor20_6M, Motor19_6M, Motor18_6M, Motor13_6M, Motor12_6M, Motor11_6M);
+motor_group rightside_6M(Motor20_6M, Motor19_6M, Motor18_6M);
+motor_group leftside_6M(Motor13_6M, Motor12_6M, Motor11_6M);
+
+//left side 20, 19, 18 (19 is reverse)
+//right side 11, 12, 13 (12 is reverse)
+// interial in 16
+// 14 is L rotational and 17 is R rotational

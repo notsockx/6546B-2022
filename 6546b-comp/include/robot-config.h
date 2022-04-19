@@ -44,3 +44,8 @@ extern rotation rotationBar;
 
 // functions
 void vexcodeInit( void );
+
+//6 Motor compat
+extern motor_group drivemotor_6M;
+extern motor_group leftside_6M;
+extern motor_group rightside_6M;

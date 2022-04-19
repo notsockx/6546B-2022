@@ -30,7 +30,7 @@ void ControlDrivetrain() {
     y = Controller1.Axis3.value() * 100/127;
 
     leftside.spin(fwd, (x+y)/2, pct);
-    rightside.spin(fwd, (x-y)/2, pct);
+    rightside.spin(reverse, (x-y)/2, pct);
 
     // // calculate theta
     // if( x == 0 ) { theta = 0; }

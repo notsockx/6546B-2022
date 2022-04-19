@@ -60,7 +60,7 @@ void autonomous(void) {
   intake.spin(forward);
   wait(1, sec);
   y_direction(2.5, 60);
-  goal_align(true, YELLOW_GOAL);
+  //goal_align(true, YELLOW_GOAL);
 }
 
 void usercontrol(void) {

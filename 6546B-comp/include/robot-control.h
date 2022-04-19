@@ -11,5 +11,3 @@ extern void ToggleIntake(void);
 extern void ToggleFrontclamp(void);
 extern void ToggleBackclamp(void);
 extern void ResetBackclamp(void);
-extern void ToggleRingclamp(void);
-extern void toggle_backclamp(bool);

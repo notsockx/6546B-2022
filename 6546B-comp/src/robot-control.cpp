@@ -165,9 +165,3 @@ void ResetBackclamp() {
   ring_clamp.set(true);
 }
 // -- END OF BACKCLAMP FUNCTIONS -- //
-
-// -- START OF RINGCLAMP FUNCTIONS -- //
-void ToggleRingclamp() {
-  ring_branch.set(!ring_branch);
-}
-// -- END OF RINGCLAMP FUNCTIONS -- //

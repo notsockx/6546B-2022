@@ -51,8 +51,8 @@ void pre_auton(void) {
 
   // reset pneumatics
   ring_clamp.set(false);
-  down_clamp.set(false);
-  ring_branch.set(false);
+  down_clamp.set(true);
+  intake.spin(forward);
 }
 
 void autonomous(void) {
@@ -61,6 +61,8 @@ void autonomous(void) {
   wait(1, sec);
   // need to test with easing
   y_direction_ease(2.5, 60);
+  // test arc turn
+  arc_turn(2, 45, true, 70);
   // need to test easing
   arc_turn_ease(2, 45, true, 70);
   // need to test as new function
@@ -81,7 +83,6 @@ void usercontrol(void) {
   Controller1.ButtonDown.pressed(ToggleFrontclamp);
   Controller1.ButtonLeft.pressed(ResetBackclamp); 
   //Controller1.ButtonX.pressed();
-  Controller1.ButtonA.pressed(ToggleRingclamp);
   Controller1.ButtonB.pressed(ToggleBackclamp);
   Controller1.ButtonY.pressed(ResetBackclamp);
 

@@ -71,24 +71,28 @@ void arc_turn_ease(double ratio, double angel, bool directionss, double speed){
   double currentAngel = initAngel;
   double finalAngel = fmod((initAngel + angel), 360);
   speed = speed + 30;
-  if( directionss == true){
+  if(directionss == true){
     //fwd
     if(angel > 0){
       // right
-      while(speed >= 35){
+      while(speed >= 35) {
         leftside.spin(fwd, speed, pct);
         rightside_old.spin(fwd, speed * ratio, pct);
         speed = speed * ((finalAngel - currentAngel)/finalAngel) + 30;
-        if(speed >= 100) {speed = 100;}
+        if(speed >= 100) {
+          speed = 100;
+        }
       }
     }
     else{
       // left
-      while(speed >= 35){
+      while(speed >= 35) {
         leftside.spin(fwd, speed * ratio, pct);
         rightside_old.spin(fwd, speed, pct);
         speed = speed * ((finalAngel - currentAngel)/finalAngel) + 30;
-        if(speed >= 100) {speed = 100;}
+        if(speed >= 100) {
+          speed = 100;
+        }
       }
     }
   }
@@ -96,20 +100,24 @@ void arc_turn_ease(double ratio, double angel, bool directionss, double speed){
     // back
     if(angel > 0){
       // right
-      while(speed >= 35){
+      while(speed >= 35) {
         leftside.spin(reverse, speed * ratio, pct);
         rightside.spin(reverse, speed, pct);
         speed = speed * ((finalAngel - currentAngel)/finalAngel) + 30;
-        if(speed >= 100) {speed = 100;}
+        if(speed >= 100) {
+          speed = 100;
+        }
       }
     }
     else{
       // left
-      while(speed >= 35){
+      while(speed >= 35) {
         leftside.spin(reverse, speed, pct);
         rightside.spin(reverse, speed * ratio, pct);
         speed = speed * ((finalAngel - currentAngel)/finalAngel) + 30;
-        if(speed >= 100) {speed = 100;}
+        if(speed >= 100) {
+          speed = 100;
+        }
       }
     }
   }
@@ -150,7 +158,7 @@ void arc_turning_v2(double ratio, double angel, bool directions, double speed){
 
 
 // pivot on oneside of wheel while driving
-void arc_turning(double ratio, double angel, bool directions, double speed) {
+void arc_turn(double ratio, double angel, bool directions, double speed) {
   angel = -angel;
   if(directions == true) {
     if(angel > 0) {

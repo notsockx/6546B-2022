@@ -185,3 +185,8 @@ double second_stage_goal_distance(){
 }
 
 //waht is the sginature
+// vex::vision::signature get_sig(bool side) {
+//   if(side == true) {/*vision 5*/ 
+//     return(vex::vision::signature(vision5));
+//   }
+// }

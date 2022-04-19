@@ -156,7 +156,8 @@ void ToggleBackclamp() {
   // modified to just be X button
   // i asked uddalak in discord vc lol
   down_clamp.set(!down_clamp.value());
-  ring_clamp.set(down_clamp.value());
+  wait(200, msec);
+  ring_clamp.set(!ring_clamp.value());
 }
 
 void ResetBackclamp() {

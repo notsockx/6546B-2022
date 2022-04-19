@@ -237,13 +237,25 @@ double second_stage_goal_distance(){
   return (second_stage_constant/cos(change_in_inertial));
 }
 
-//waht is the sginature
-vex::vision::signature get_color_signature(bool dir){
-  if(dir == true){
-    //forward and vision7
-    return vex::vision::signature::rgb;
-  }
-  else {
-    // backward and vision 5
-  }
+// -- START OF FRONTCLAMP FUNCTIONS -- //
+void front_clamp_up() {
+  front.set(/*up*/);  // set front clamp to opposite current state
 }
+void front_clamp_down() {
+  front.set(/*down*/);  // set front clamp to opposite current state
+}
+// -- END OF FRONTCLAMP FUNCTIONS -- //
+
+// -- START OF BACKCLAMP FUNCTIONS -- //
+void back_goal_pickup(){
+  down_clamp.set(/*down*/);
+  wait(200, msec);
+  ring_clamp.set(/*up*/);
+}
+
+void back_goal_drop(){
+  ring_clamp.set(/*down*/);
+  wait(200, msec);
+  down_clamp.set(/*up*/);
+}
+// -- END OF BACKCLAMP FUNCTIONS -- //

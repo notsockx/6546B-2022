@@ -28,12 +28,12 @@ motor twobar = motor(PORT6, ratio18_1, false);
 motor intake = motor(PORT19, ratio6_1, false);
 motor Motor16 = motor(PORT16, ratio36_1, true);
 motor Motor17 = motor(PORT17, ratio36_1, false);
-motor DriveLeft1 = motor(PORT10, ratio6_1, false);
-motor DriveLeft2 = motor(PORT9, ratio6_1, true);
-motor DriveLeft3 = motor(PORT8, ratio6_1, false);
-motor DriveRight1 = motor(PORT11, ratio6_1, true);
-motor DriveRight2 = motor(PORT12, ratio6_1, false);
-motor DriveRight3 = motor(PORT13, ratio6_1, true);
+motor DriveLeft1 = motor(PORT11, ratio6_1, true);
+motor DriveLeft2 = motor(PORT12, ratio6_1, false);
+motor DriveLeft3 = motor(PORT13, ratio6_1, true);
+motor DriveRight1 = motor(PORT20, ratio6_1, false);
+motor DriveRight2 = motor(PORT19, ratio6_1, true);
+motor DriveRight3 = motor(PORT18, ratio6_1, false);
 
 // motor groups
 motor_group fourbar(Motor16, Motor17);
@@ -50,9 +50,9 @@ digital_out ring_branch = digital_out(Brain.ThreeWirePort.A);
 // sensors
 vision vision7 = vision (PORT7, 50);
 gps DriveGPS = gps(PORT18, 0.00, 0.00, mm, 180);
-rotation rotationRight = rotation(PORT8, false);
-rotation rotationLeft = rotation(PORT12, true);
-inertial inertial13 = inertial(PORT13);
+rotation rotationRight = rotation(PORT17, false);
+rotation rotationLeft = rotation(PORT14, true);
+inertial inertial13 = inertial(PORT16);
 rotation rotationBar = rotation(PORT11, false);
 
 // define variable for remote controller enable/disable

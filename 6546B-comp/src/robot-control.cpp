@@ -9,7 +9,6 @@
 
 // setup
 #include "vex.h"
-#include "math.h"
 #include "robot-config.h"
 using namespace vex;
 
@@ -22,20 +21,37 @@ void ControlDrivetrain() {
   double theta;
   
   while(1) {
-    x = Controller1.Axis4.value() * 100 / 127;
-    y = Controller1.Axis3.value() * 100 / 127;
+    // grab joystick positions
+    x = Controller1.Axis4.value();
+    y = Controller1.Axis3.value();
 
-    if( x == 0 ) { theta = 0; }
-    else { theta = atan(y/x); }
+    // calculate theta
+    if(x == 0) { theta = 0; }
+    else if(x < 0) { theta = M_PI/2 + atan2,y,x); }
+    theta = M_PI/2 - atan2(y,x);
 
+    // calculate target velocity
     v = sqrt(pow(x, 2) + pow(y, 2));
-    if(v >= 100) { v = 100; }
-    v = v * (-1 * int( y >= 0 ));
 
-    leftside.spin(fwd, v, pct);
-    rightside.spin(fwd, v * cos(2*theta), pct);
+    // scale velocity down so range is 0 - 100
+    if(v > 100) { v = 100; }
 
-    vex::this_thread::sleep_for(10);
+    // check if velocity needs to be positive or negative
+    if(y<0) { v = -v; }
+
+    // right stick as velocity
+    //v = Controller1.Axis2.value() * 100./127.;
+
+    // set motor speed
+    if(x >= 0 ) {  // if turning right
+      leftside.spin(fwd, v, pct);
+      rightside.spin(fwd, (-2*v)/(M_PI) * theta + v, pct);
+    }
+    else {  // if turning left
+      leftside.spin(fwd, (2*v)/(M_PI) * theta + v, pct);
+      rightside.spin(fwd, v, pct);
+    }
+    vex::this_thread::sleep_for(100);
   }
 }
 // -- END OF DRIVETRAIN FUNCTIONS -- //

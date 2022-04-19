@@ -18,8 +18,6 @@ void ControlDrivetrain() {
   // setup
   double x;
   double y;
-  double v;
-  double theta;
 
   leftside.setStopping(coast);
   rightside.setStopping(coast);
@@ -27,41 +25,35 @@ void ControlDrivetrain() {
   // left joystick controls angle robot goes towards
   // right joystick up-down controls robot speed
   while(1) {
-    x = Controller1.Axis4.value() * 100 / 127;
-    y = Controller1.Axis3.value() * 100 / 127;
+    // grab joystick positions
+    x = Controller1.Axis4.value() * 100/127;
+    y = Controller1.Axis3.value() * 100/127;
 
-    rightside.spin(reverse, (x - y)/2, pct);
-    leftside.spin(fwd, (x + y)/2, pct);
-    
-    // right joystick for speed
-    //v = Controller1.Axis1.value() * 100 / 127;
+    leftside.spin(fwd, (x+y)/2, pct);
+    rightside.spin(fwd, (x-y)/2, pct);
 
-    // left joystick magnitude for speed
+    // // calculate theta
+    // if( x == 0 ) { theta = 0; }
+    // if(x<0) { theta = M_PI/2 + atan2(y,x); }
+    // else { theta = M_PI/2 - atan2(y,x); }
+
+    // // left joystick magnitude for speed
     // v = sqrt(pow(x, 2) + pow(y, 2));
     // if(v > 100) { v = 100; }
-
-    // if( x == 0 ) { theta = 90; }
-    // else { theta = 180 - 2*atan(y/x); }
+    
+    // // right joystick for speed
+    // //v = Controller1.Axis1.value() * 100 / 127;
 
     // if( x >= 0 ) {
-    //   leftside.setVelocity(v, pct);
-    //   rightside.setVelocity(v * cos(theta), pct);
+    //   leftside.spin(fwd, v, pct);
+    //   rightside.spin(fwd, (-2*v)/(M_PI) * theta + v, pct);
     // }
     // else {
-    //   leftside.setVelocity(v * cos(theta), pct);
-    //   rightside.setVelocity(v, pct);
-    // }
-
-    // if( v >= 0 ) {
-    //   leftside.spin(fwd);
-    //   rightside.spin(fwd);
-    // }
-    // else {
-    //   leftside.spin(fwd);
-    //   rightside.spin(fwd);
+    //   leftside.spin(fwd, (2*v)/(M_PI) * theta + v, pct);
+    //   rightside.spin(fwd, v, pct);
     // }
     
-    vex::this_thread::sleep_for(10);
+    vex::this_thread::sleep_for(100);
   }
 }
 // -- END OF DRIVETRAIN FUNCTIONS -- //

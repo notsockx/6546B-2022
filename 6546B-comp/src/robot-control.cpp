@@ -30,7 +30,7 @@ void ControlDrivetrain() {
     x = Controller1.Axis4.value() * 100 / 127;
     y = Controller1.Axis3.value() * 100 / 127;
 
-    rightside.spin(fwd, (x - y)/2, pct);
+    rightside.spin(reverse, (x - y)/2, pct);
     leftside.spin(fwd, (x + y)/2, pct);
     
     // right joystick for speed

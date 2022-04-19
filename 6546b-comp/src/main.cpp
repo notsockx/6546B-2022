@@ -70,8 +70,8 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // start threads
-  //vex::thread a(ControlDrivetrain);
-  vex::thread a(TwoStick);
+  vex::thread a(ControlDrivetrain);
+  //vex::thread a(TwoStick);
   vex::thread b(ControlFourbar);
   vex::thread c(ControlTwobar);
 

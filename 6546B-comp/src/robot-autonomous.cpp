@@ -47,6 +47,7 @@ void y_direction_ease(double rot, double initVelo) {
   while (1) {
   double average = abs(int(rotationLeft.position(turns) + rotationRight.position(turns)))/2;
   double velo = (initVelo*((rot - average)/rot) + 30);
+  if(velo >=100){velo = 100;}
   drivemotors.setVelocity(velo, percent);
     if(velo <= 35){
       drivemotors.stop(brake);
@@ -76,7 +77,7 @@ void arc_turn_ease(double ratio, double angel, bool directionss, double speed){
       // right
       while(speed >= 35){
         leftside.spin(fwd, speed, pct);
-        rightside.spin(fwd, speed * ratio, pct);
+        rightside_old.spin(fwd, speed * ratio, pct);
         speed = speed * ((finalAngel - currentAngel)/finalAngel) + 30;
         if(speed >= 100) {speed = 100;}
       }
@@ -85,7 +86,7 @@ void arc_turn_ease(double ratio, double angel, bool directionss, double speed){
       // left
       while(speed >= 35){
         leftside.spin(fwd, speed * ratio, pct);
-        rightside.spin(fwd, speed, pct);
+        rightside_old.spin(fwd, speed, pct);
         speed = speed * ((finalAngel - currentAngel)/finalAngel) + 30;
         if(speed >= 100) {speed = 100;}
       }
@@ -286,12 +287,12 @@ double second_stage_goal_distance(){
 }
 
 // -- START OF FRONTCLAMP FUNCTIONS -- //
-void front_clamp_up() {
-  front.set(/*up*/);  // set front clamp to opposite current state
-}
-void front_clamp_down() {
-  front.set(/*down*/);  // set front clamp to opposite current state
-}
+// void front_clamp_up() {
+//   front.set(/*up*/);  // set front clamp to opposite current state
+// }
+// void front_clamp_down() {
+//   front.set(/*down*/);  // set front clamp to opposite current state
+// }
 // -- END OF FRONTCLAMP FUNCTIONS -- //
 
 // -- START OF BACKCLAMP FUNCTIONS -- //

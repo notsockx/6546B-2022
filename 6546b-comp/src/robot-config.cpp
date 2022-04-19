@@ -32,12 +32,16 @@ motor Motor14 = motor(PORT14, ratio6_1, true);
 motor Motor15 = motor(PORT15, ratio6_1, true);
 motor Motor9 = motor(PORT9, ratio6_1, true);
 motor Motor10 = motor(PORT10, ratio6_1, true);
+motor Motor9F = motor(PORT9, ratio6_1, false);
+motor Motor10F = motor(PORT10, ratio6_1, false);
 
 // motor groups
 motor_group fourbar(Motor16, Motor17);
 motor_group leftside(Motor14, Motor15);
 motor_group rightside(Motor9, Motor10);
+motor_group rightside_old(Motor9F, Motor10F);
 motor_group drivemotors(Motor9, Motor10, Motor14, Motor15);
+motor_group drivemotors_old(Motor9F, Motor10F, Motor14, Motor15);
 
 // digital out
 digital_out front = digital_out(Brain.ThreeWirePort.B);

@@ -25,6 +25,8 @@ extern motor_group fourbar;
 extern motor_group leftside;
 extern motor_group rightside;
 extern motor_group drivemotors;
+extern motor_group drivemotors_old;
+extern motor_group rightside_old;
 
 // digital out
 extern digital_out front;

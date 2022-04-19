@@ -238,3 +238,12 @@ double second_stage_goal_distance(){
 }
 
 //waht is the sginature
+vex::vision::signature get_color_signature(bool dir){
+  if(dir == true){
+    //forward and vision7
+    return vex::vision::signature::rgb;
+  }
+  else {
+    // backward and vision 5
+  }
+}

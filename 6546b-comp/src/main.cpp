@@ -17,7 +17,7 @@
 // rotationLeft         rotation      12              
 // inertial13           inertial      13              
 // GPS18                gps           18              
-// intake          .i,anmrfstkiesaftrv gm vp     motor         19              
+// intake               motor         19              
 // front                digital_out   B               
 // down_clamp           digital_out   C               
 // ring_clamp           digital_out   D               
@@ -58,8 +58,8 @@ void pre_auton(void) {
 
 void autonomous(void) {
   // white route
-  y_direction(2.5);
-  goal_align(false, yellow);
+  // y_direction(2.5);
+  // goal_align(false, yellow);
   //second_stage_goal_distance();
 //   intake.spin(forward);
 //   wait(1, sec);

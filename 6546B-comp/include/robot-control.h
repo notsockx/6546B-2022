@@ -2,7 +2,7 @@ using namespace vex;
 
 // tasks (run in background)
 extern void ControlDrivetrain(void);
-extern void ControlDrivetrain_6M(void);
+// extern void ControlDrivetrain_6M(void);
 extern void ControlFourbar(void);
 extern void ControlTwobar(void);
 extern void TwoStick(void);

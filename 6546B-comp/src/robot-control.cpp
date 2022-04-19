@@ -59,6 +59,7 @@ void ControlDrivetrain() {
 // -- END OF DRIVETRAIN FUNCTIONS -- //
 
 // -- START OF 6 Motor FUNCTIONS -- //
+/*
 void ControlDrivetrain_6M() {
   // setup
   double x;
@@ -80,6 +81,7 @@ void ControlDrivetrain_6M() {
     vex::this_thread::sleep_for(10);
   }
 }
+*/
 // -- END OF 6 Motor FUNCTIONS -- //
 
 

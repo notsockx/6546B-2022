@@ -51,8 +51,8 @@ void pre_auton(void) {
 
   // reset pneumatics
   ring_clamp.set(false);
-  down_clamp.set(true);
-  // ring_branch.set(false);
+  down_clamp.set(false);
+  ring_branch.set(false);
 }
 
 void autonomous(void) {
@@ -60,13 +60,13 @@ void autonomous(void) {
   intake.spin(forward);
   wait(1, sec);
   y_direction(2.5, 60);
-  // goal_align(true, YELLOW_GOAL);
+  //goal_align(true, YELLOW_GOAL);
 }
 
 void usercontrol(void) {
   // start threads
-  vex::thread a(ControlDrivetrain);
-  //vex::thread a(TwoStick);
+  //vex::thread a(ControlDrivetrain);
+  vex::thread a(TwoStick);
   vex::thread b(ControlFourbar);
   vex::thread c(ControlTwobar);
 
@@ -78,7 +78,6 @@ void usercontrol(void) {
   //Controller1.ButtonX.pressed();
   Controller1.ButtonA.pressed(ToggleRingclamp);
   Controller1.ButtonB.pressed(ToggleBackclamp);
-  // toggle_backclamp(Controller1.ButtonB.pressing());
   Controller1.ButtonY.pressed(ResetBackclamp);
 
   while (true) {

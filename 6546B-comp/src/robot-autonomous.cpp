@@ -30,9 +30,9 @@ void y_direction(double rot, double initVelo) {
   rotationRight.setPosition(0, turns);
   while (1) {
   double average = abs(int(rotationLeft.position(turns) + rotationRight.position(turns)))/2;
-  double velo = initVelo*((rot - average)/rot);
+  double velo = (initVelo*((rot - average)/rot) + 30);
   drivemotors.setVelocity(velo, percent);
-    if(velo <= 5){
+    if(velo <= 35){
       drivemotors.stop(brake);
       break;
     }
@@ -46,6 +46,59 @@ void y_direction(double rot, double initVelo) {
   rotationLeft.setPosition(0, turns);
   rotationRight.setPosition(0, turns);
 }
+
+// pivot on oneside with easing
+void arc_turn_ease(double ratio, double angel, bool directionss, double speed){
+  angel = -angel;
+  double initAngel = inertial13.orientation(yaw, degrees);
+  double currentAngel = initAngel;
+  double finalAngel = fmod((initAngel + angel), 360);
+  speed = speed + 30;
+  if( directionss == true){
+    //fwd
+    if(angel > 0){
+      // right
+      while(speed >= 35){
+        leftside.spin(fwd, speed, pct);
+        rightside.spin(fwd, speed * ratio, pct);
+        speed = speed * ((finalAngel - currentAngel)/finalAngel) + 30;
+        if(speed >= 100) {speed = 100;}
+      }
+    }
+    else{
+      // left
+      while(speed >= 35){
+        leftside.spin(fwd, speed * ratio, pct);
+        rightside.spin(fwd, speed, pct);
+        speed = speed * ((finalAngel - currentAngel)/finalAngel) + 30;
+        if(speed >= 100) {speed = 100;}
+      }
+    }
+  }
+  else{
+    // back
+    if(angel > 0){
+      // right
+      while(speed >= 35){
+        leftside.spin(reverse, speed * ratio, pct);
+        rightside.spin(reverse, speed, pct);
+        speed = speed * ((finalAngel - currentAngel)/finalAngel) + 30;
+        if(speed >= 100) {speed = 100;}
+      }
+    }
+    else{
+      // left
+      while(speed >= 35){
+        leftside.spin(reverse, speed, pct);
+        rightside.spin(reverse, speed * ratio, pct);
+        speed = speed * ((finalAngel - currentAngel)/finalAngel) + 30;
+        if(speed >= 100) {speed = 100;}
+      }
+    }
+  }
+  drivemotors.stop(brake);
+}
+
 
 // pivot on oneside of wheel while driving
 void arc_turning(double ratio, double angel, bool directions, double speed) {
@@ -185,8 +238,12 @@ double second_stage_goal_distance(){
 }
 
 //waht is the sginature
-// vex::vision::signature get_sig(bool side) {
-//   if(side == true) {/*vision 5*/ 
-//     return(vex::vision::signature(vision5));
-//   }
-// }
+vex::vision::signature get_color_signature(bool dir){
+  if(dir == true){
+    //forward and vision7
+    return vex::vision::signature::rgb;
+  }
+  else {
+    // backward and vision 5
+  }
+}

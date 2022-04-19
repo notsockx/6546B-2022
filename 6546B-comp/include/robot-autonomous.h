@@ -1,6 +1,7 @@
 using namespace vex;
 
-extern void y_direction(double, double);
+extern void y_direction(double);
+extern void y_direction_ease(double, double);
 extern void wheel_pivot(double, double, bool, double);
 extern void normal_turning(double);
 extern void goal_align(bool, vex::vision::signature);

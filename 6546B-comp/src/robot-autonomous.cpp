@@ -23,9 +23,25 @@ double second_stage_constant = 1.68;
 //printing value of drivebase rotation sensors
 double rotation_value = (rotationLeft.position(turns) + rotationRight.position(turns))/2;
 
-
 // move forward / back based on rotations
-void y_direction(double rot, double initVelo) {
+void y_direction(double rot) {
+  rotationLeft.setPosition(0, turns);
+  rotationRight.setPosition(0, turns);
+  if(rot > 0){
+    drivemotors.spin(fwd);
+    waitUntil( ( ( abs(rotationLeft.position(turns)) + abs(rotationRight.position(turns)) ) / 2 ) >= rot);
+    drivemotors.stop(brake);
+  }
+  else{
+    drivemotors.spin(reverse);
+    waitUntil( -( ( abs(rotationLeft.position(turns)) + abs(rotationRight.position(turns)) ) / 2 ) <= rot);
+    drivemotors.stop(brake);
+  }
+}
+
+
+// move forward / back based on velocity
+void y_direction_ease(double rot, double initVelo) {
   rotationLeft.setPosition(0, turns);
   rotationRight.setPosition(0, turns);
   while (1) {
@@ -97,6 +113,38 @@ void arc_turn_ease(double ratio, double angel, bool directionss, double speed){
     }
   }
   drivemotors.stop(brake);
+}
+
+void arc_turning_v2(double ratio, double angel, bool directions, double speed){
+  angel = -angel;
+  if (directions == true){
+    // forward
+  }
+
+  if(directions == true) {
+    if(angel > 0) {
+      leftside.setVelocity(speed, percent);
+      rightside.setVelocity((speed*ratio), percent);
+    }
+    else if(angel < 0) {
+      rightside.setVelocity(speed, percent);
+      leftside.setVelocity((speed*ratio), percent);
+    }
+  }
+  else if(directions == false) {
+    if(angel > 0) {
+       rightside.setVelocity(-speed, percent);
+       leftside.setVelocity(-(speed*ratio), percent);
+    }
+    else if(angel < 0) {
+       leftside.setVelocity(-speed, percent);
+       rightside.setVelocity(-(speed*ratio), percent);
+    }
+  }
+  double initAngel = inertial13.orientation(yaw, degrees);
+  double currentAngel = initAngel;
+  double finalAngel = fmod((initAngel + angel), 360);
+
 }
 
 
@@ -248,14 +296,14 @@ void front_clamp_down() {
 
 // -- START OF BACKCLAMP FUNCTIONS -- //
 void back_goal_pickup(){
-  down_clamp.set(/*down*/);
+  down_clamp.set(true);
   wait(200, msec);
-  ring_clamp.set(/*up*/);
+  ring_clamp.set(false);
 }
 
 void back_goal_drop(){
-  ring_clamp.set(/*down*/);
+  ring_clamp.set(true);
   wait(200, msec);
-  down_clamp.set(/*up*/);
+  down_clamp.set(false);
 }
 // -- END OF BACKCLAMP FUNCTIONS -- //

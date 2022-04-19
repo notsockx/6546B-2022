@@ -59,8 +59,12 @@ void autonomous(void) {
   // white route
   intake.spin(forward);
   wait(1, sec);
-  y_direction(2.5, 60);
+  // need to test with easing
+  y_direction_ease(2.5, 60);
+  // need to test easing
   arc_turn_ease(2, 45, true, 70);
+  // need to test as new function
+  y_direction(-2.5);
   //goal_align(true, YELLOW_GOAL);
 }
 

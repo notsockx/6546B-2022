@@ -2,23 +2,11 @@ using namespace vex;
 using signature = vision::signature;
 
 // user variables
-extern double intakespeed;
 extern double fourbarspeed;
-extern double twobarspeed;
 
 // basic vex devices
 extern brain Brain;
 extern controller Controller1;
-
-// motors
-extern motor twobar;
-extern motor intake;
-extern motor Motor16;
-extern motor Motor17;
-extern motor Motor14;
-extern motor Motor15;
-extern motor Motor9;
-extern motor Motor10;
 
 // motor groups
 extern motor_group fourbar;

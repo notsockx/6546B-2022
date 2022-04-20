@@ -14,59 +14,129 @@ using namespace vex;
 
 // -- START OF DRIVETRAIN FUNCTIONS -- //
 void ControlDrivetrain() {
-  // setup
-  double x;
-  double y;
-  double v;
-  double theta;
+  /* 
+  INTRODUCTION:
+  This version of drivebase code first works by
+  getting user input from the left joystick in order 
+  to calculate the desired angle the driver wants
+  the robot to drive in. The right joystick is then 
+  used to set how fast the drivebase moves in 
+  the specified direction.
+  */
+
+  // initialize variables
+  int x;       // x position of right stick
+  int y;       // y position of left stick
+  double theta;   // drivebase desired heading
+  double v;       // drivebase 'velocity' (not really though)
+  double vLeft;   // left motor velocity
+  double vRight;  // right motor velocity
   
+  // set motor brake type
+  leftside.setStopping(coast);
+  rightside.setStopping(coast);
+
   while(1) {
-    // grab joystick positions
-    x = Controller1.Axis4.value();
-    y = Controller1.Axis3.value();
+    // clear screen
+    Brain.Screen.clearScreen();
 
-    // calculate theta
-    if(x == 0) { theta = 0; }
-    else if(x < 0) { theta = M_PI/2 + atan2,y,x); }
-    theta = M_PI/2 - atan2(y,x);
+    // get left joystick position
+    x = Controller1.Axis4.position();
+    y = Controller1.Axis3.position();
 
-    // calculate target velocity
-    v = sqrt(pow(x, 2) + pow(y, 2));
+    // get target velocity
+    //v = Controller1.Axis2.position();
+    v =  sqrt( pow( x, 2 ) + pow( y, 2 ));
+    if( v > 100 ) { v = 100; }
 
-    // scale velocity down so range is 0 - 100
-    if(v > 100) { v = 100; }
+    // calculate target heading
+    theta = atan2(x,y);
 
-    // check if velocity needs to be positive or negative
-    if(y<0) { v = -v; }
-
-    // right stick as velocity
-    //v = Controller1.Axis2.value() * 100./127.;
-
-    // set motor speed
-    if(x >= 0 ) {  // if turning right
-      leftside.spin(fwd, v, pct);
-      rightside.spin(fwd, (-2*v)/(M_PI) * theta + v, pct);
+    // calculate drivebase velocity
+    if(  Controller1.Axis3.position() >= 0 ) {  // positive velocities
+      if(theta >= 0) {  // quadrant 1 of joystick
+        vLeft = v;
+        vRight = -v/M_PI * theta + v;
+        // print quadrant
+        Brain.Screen.setCursor(5, 1);
+        Brain.Screen.print("Q: 1");
+      }
+      else {  // quadrant 2 of joystick
+        vLeft = v/M_PI * theta + v;
+        vRight = v;
+        Brain.Screen.setCursor(5, 1);
+        Brain.Screen.print("Q: 2");
+      }
     }
-    else {  // if turning left
-      leftside.spin(fwd, (2*v)/(M_PI) * theta + v, pct);
-      rightside.spin(fwd, v, pct);
+    else {  // negative velocities
+      if(theta < 0) {  // quadrant 3 of joystick
+        vLeft = -v;
+        vRight = v/M_PI * (theta+M_PI_2) + v;
+        Brain.Screen.setCursor(5, 1);
+        Brain.Screen.print("Q: 3");
+      }
+      else {  // quadrant 4 of joystick
+        vLeft = (-2*v)/M_PI_2 * (theta-M_PI_2) + v;
+        vRight = -v;
+        Brain.Screen.setCursor(5, 1);
+        Brain.Screen.print("Q: 4");
+      }
     }
-    vex::this_thread::sleep_for(100);
+
+    // spin drivetrain motors
+    leftside.spin(fwd, vRight, pct);
+    rightside.spin(fwd, vRight, pct);
+    
+    // debug
+    Brain.Screen.setCursor(1, 1);
+    Brain.Screen.print("Input");
+    Brain.Screen.setCursor(2, 1);
+    Brain.Screen.print("v:");
+    Brain.Screen.setCursor(2, 4);
+    Brain.Screen.print(v);
+    Brain.Screen.setCursor(3, 1);
+    Brain.Screen.print("<:");
+    Brain.Screen.setCursor(3, 4);
+    Brain.Screen.print(theta*180/M_PI);
+    Brain.Screen.setCursor(4, 1);
+    Brain.Screen.print("<:");
+    Brain.Screen.setCursor(4, 4);
+    Brain.Screen.print(theta);
+
+    Brain.Screen.setCursor(1, 11);
+    Brain.Screen.print("Expected");
+    Brain.Screen.setCursor(2, 11);
+    Brain.Screen.print("Left:");
+    Brain.Screen.setCursor(2, 17);
+    Brain.Screen.print((y+x)/2);
+    Brain.Screen.setCursor(3, 11);
+    Brain.Screen.print("Rght:");
+    Brain.Screen.setCursor(3, 17);
+    Brain.Screen.print((y-x)/2);
+    Brain.Screen.setCursor(4, 11);
+    Brain.Screen.print("L/R:");
+    Brain.Screen.setCursor(4, 17);
+    Brain.Screen.print((y+x)/(y-x));
+
+    Brain.Screen.setCursor(1, 22);
+    Brain.Screen.print("Method");
+    Brain.Screen.setCursor(2, 22);
+    Brain.Screen.print("Left:");
+    Brain.Screen.setCursor(2, 28);
+    Brain.Screen.print(vLeft);
+    Brain.Screen.setCursor(3, 22);
+    Brain.Screen.print("Rght:");
+    Brain.Screen.setCursor(3, 28);
+    Brain.Screen.print(vRight);
+    Brain.Screen.setCursor(4, 22);
+    Brain.Screen.print("L/R:");
+    Brain.Screen.setCursor(4, 28);
+    Brain.Screen.print(vRight/vLeft);
+    
+    vex::this_thread::sleep_for(10);
   }
 }
 // -- END OF DRIVETRAIN FUNCTIONS -- //
-
-// -- START OF INTAKE FUNCTIONS -- //
-void ToggleIntake() {
-  if(intake.velocity(pct) != 0) {
-    intake.stop(coast);
-  }
-  else {
-    intake.spin(fwd, intakespeed, pct);
-  }
-}
-
-// -- END OF INTAKE FUNCTIONS -- //
 
 // -- START OF FOURBAR FUNCTIONS -- //
 void ControlFourbar() {
@@ -79,29 +149,11 @@ void ControlFourbar() {
     }
     else {
       fourbar.stop(hold);
-      //fourbar.setPosition(217, degrees);
     }
-    vex::this_thread::sleep_for(10);
+    vex::this_thread::sleep_for(100);
   }
 }
 // -- END OF FOURBAR FUNCTIONS -- //
-
-// -- START OF TWOBAR FUNCTIONS -- //
-void ControlTwobar() {
-  while(true) {
-    if(Controller1.ButtonR1.pressing()) {
-      twobar.spin(reverse, twobarspeed, percent);
-    }
-    else if(Controller1.ButtonR2.pressing()) {
-      twobar.spin(forward, twobarspeed, percent);
-    }
-    else {
-      twobar.stop(hold);
-    }
-    vex::this_thread::sleep_for(10);
-  }
-}
-// -- END OF TWOBAR FUNCTIONS -- //
 
 // -- START OF FRONTCLAMP FUNCTIONS -- //
 void ToggleFrontclamp() {
@@ -111,20 +163,12 @@ void ToggleFrontclamp() {
 
 // -- START OF BACKCLAMP FUNCTIONS -- //
 void ToggleBackclamp() {
-  // modified to just be X button
-  // i asked uddalak in discord vc lol
   down_clamp.set(!down_clamp.value());
   ring_clamp.set(down_clamp.value());
 }
 
 void ResetBackclamp() {
-  down_clamp.set(true);
-  ring_clamp.set(true);
+  down_clamp.set(false);
+  ring_clamp.set(false);
 }
 // -- END OF BACKCLAMP FUNCTIONS -- //
-
-// -- START OF RINGCLAMP FUNCTIONS -- //
-void ToggleRingclamp() {
-  ring_branch.set(!ring_branch);
-}
-// -- END OF RINGCLAMP FUNCTIONS -- //

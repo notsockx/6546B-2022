@@ -57,7 +57,6 @@ void pre_auton(void) {
 
 void autonomous(void) {
   // white route
-  intake.spin(forward);
   wait(1, sec);
   y_direction(2);
   wait(1,sec);
@@ -72,20 +71,19 @@ void usercontrol(void) {
   // start threads
   vex::thread a(ControlDrivetrain);
   vex::thread b(ControlFourbar);
-  vex::thread c(ControlTwobar);
 
   // set up callbacks for controller buttons
-  //Controller1.ButtonUp.pressed(toggleIntakeSpeed);
-  Controller1.ButtonRight.pressed(ToggleIntake);
+  //Controller1.ButtonUp.pressed();
+  //Controller1.ButtonRight.pressed();
   Controller1.ButtonDown.pressed(ToggleFrontclamp);
   Controller1.ButtonLeft.pressed(ResetBackclamp); 
   //Controller1.ButtonX.pressed();
-  Controller1.ButtonA.pressed(ToggleRingclamp);
+  //Controller1.ButtonA.pressed();
   Controller1.ButtonB.pressed(ToggleBackclamp);
   Controller1.ButtonY.pressed(ResetBackclamp);
 
   while (true) {
-    vex::this_thread::sleep_for(10);  // dont hog cpu
+    vex::this_thread::sleep_for(100);  // dont hog cpu
   }
 }
 

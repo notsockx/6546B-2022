@@ -14,20 +14,15 @@ using code = vision::code;
 
 // user defined config
 // setup variables, etc.
-double intakespeed = 40;
-double fourbarspeed = 70;
-double twobarspeed = 40;
-
+double fourbarspeed = 100;
 
 // basic vex devices
 brain Brain;
 controller Controller1 = controller(primary);
 
 // motors
-motor twobar = motor(PORT6, ratio18_1, false);
-motor intake = motor(PORT19, ratio6_1, false);
-motor Motor16 = motor(PORT16, ratio36_1, true);
-motor Motor17 = motor(PORT17, ratio36_1, false);
+motor FourbarL = motor(PORT1, ratio36_1, true);
+motor FourbarR = motor(PORT10, ratio36_1, false);
 motor DriveLeft1 = motor(PORT11, ratio6_1, true);
 motor DriveLeft2 = motor(PORT12, ratio6_1, false);
 motor DriveLeft3 = motor(PORT13, ratio6_1, true);
@@ -36,15 +31,15 @@ motor DriveRight2 = motor(PORT19, ratio6_1, true);
 motor DriveRight3 = motor(PORT18, ratio6_1, false);
 
 // motor groups
-motor_group fourbar(Motor16, Motor17);
+motor_group fourbar(FourbarL, FourbarR);
 motor_group leftside(DriveLeft1, DriveLeft2, DriveLeft3);
 motor_group rightside(DriveRight1, DriveRight2, DriveRight3);
 motor_group drivemotors(DriveLeft1, DriveLeft2, DriveLeft3, DriveRight1, DriveRight2, DriveRight3);
 
 // digital out
-digital_out front = digital_out(Brain.ThreeWirePort.B);
-digital_out down_clamp = digital_out(Brain.ThreeWirePort.C);
-digital_out ring_clamp = digital_out(Brain.ThreeWirePort.D);
+digital_out front = digital_out(Brain.ThreeWirePort.H);
+digital_out down_clamp = digital_out(Brain.ThreeWirePort.F);
+digital_out ring_clamp = digital_out(Brain.ThreeWirePort.G);
 digital_out ring_branch = digital_out(Brain.ThreeWirePort.A);
 
 // sensors
@@ -53,7 +48,6 @@ gps DriveGPS = gps(PORT18, 0.00, 0.00, mm, 180);
 rotation rotationRight = rotation(PORT17, false);
 rotation rotationLeft = rotation(PORT14, true);
 inertial inertial13 = inertial(PORT16);
-rotation rotationBar = rotation(PORT11, false);
 
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;

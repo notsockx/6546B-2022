@@ -239,6 +239,49 @@ void normal_turning(double deg) {
   }
 }
 
+void goal_align_v2(bool side, vex::color goal_color){
+  int center = 158;
+  double original_inertial = inertial13.heading(deg);
+  if(side == true){
+    while(!vision7.largestObject.exists){
+    vision7.takeSnapshot(goal_color);
+    }
+    if(vision7.largestObject.centerX > center){
+          //turn right
+      leftside.spin(forward);
+      rightside.spin(reverse);
+      waitUntil(vision7.largestObject.centerX <= center);
+      drivemotors.stop(brake);
+    }
+    else if(vision7.largestObject.centerX < center){
+          //turn left
+      leftside.spin(reverse);
+      rightside.spin(forward);
+      waitUntil(vision7.largestObject.centerX >= center);
+      drivemotors.stop(brake);
+    }
+  }
+  else{
+    while(!vision5.largestObject.exists){
+    vision5.takeSnapshot(goal_color);
+    }
+    if(vision5.largestObject.centerX > center){
+          //turn right
+      leftside.spin(forward);
+      rightside.spin(reverse);
+      waitUntil(vision7.largestObject.centerX <= center);
+      drivemotors.stop(brake);
+    }
+    else if(vision5.largestObject.centerX < center){
+          //turn left
+      leftside.spin(reverse);
+      rightside.spin(forward);
+      waitUntil(vision7.largestObject.centerX >= center);
+      drivemotors.stop(brake);
+    }
+  }
+}
+
 //vision alignment
 void goal_align(bool side, vex::color goal_color) {
   int center = 158;

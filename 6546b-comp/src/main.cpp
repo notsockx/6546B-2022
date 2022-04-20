@@ -60,8 +60,9 @@ void pre_auton(void) {
 
 void autonomous(void) {
   // white route
-  y_direction(2.5);
-  goal_align_v2(true, yellow);
+  y_direction(-2.5);
+  goal_align_v2(false, yellow);
+  y_direction(second_stage_goal_distance());
 }
 
 void usercontrol(void) {

@@ -240,12 +240,16 @@ void normal_turning(double deg) {
 }
 
 void goal_align_v2(bool side, vex::color goal_color){
+  Brain.Screen.clearScreen();
+  Brain.Screen.setCursor(1, 1);
   int center = 158;
   double original_inertial = inertial13.heading(deg);
   if(side == true){
     // fwd
-    while(!vision7.largestObject.exists){
     vision7.takeSnapshot(goal_color);
+    while(vision7.largestObject.exists == false){
+      Brain.Screen.print("omg");
+      vision7.takeSnapshot(goal_color);
     }
     if(vision7.largestObject.centerX > center){
       // turn right
@@ -271,8 +275,10 @@ void goal_align_v2(bool side, vex::color goal_color){
   }
   else{
     // reverse
-    while(!vision5.largestObject.exists){
-    vision5.takeSnapshot(goal_color);
+    vision7.takeSnapshot(goal_color);
+    while(vision7.largestObject.exists == false){
+      Brain.Screen.print("omg");
+      vision7.takeSnapshot(goal_color);
     }
     if(vision5.largestObject.centerX > center){
       // turn right

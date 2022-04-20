@@ -31,30 +31,12 @@ void UddDrivetrain() {
     y = Controller1.Axis3.position() / 127.0;
     velo = (Controller1.Axis2.value() + 127 + bottom_out) / 254;
 
-    if(velo > 1){
-      velo = 1;
-    }
+    x = Controller1.Axis4.value() * 100/127;
+    y = Controller1.Axis3.value() * 100/127;
 
-    if(x > 0){
-      leftside.spin(forward, 100 * velo, pct);
-      rightside_old.spin(forward, 100 * velo * y, pct);
-    }
-    else if ( x < 0){
-      leftside.spin(forward, 100 * velo * y, pct);
-      rightside_old.spin(forward, 100 * velo, pct);
-    }
-    else if( (x == 0) && (y != 0)){
-      leftside.spin(fwd, 100 * velo * y, pct);
-      rightside_old.spin(fwd, 100 * velo * y, pct);
-    }
+    leftside.spin(fwd, (x+y) * velo, pct);
+    rightside.spin(reverse, (x-y) * velo, pct);
 
-    if((x == 0) && (y == 0)) {
-      drivemotors.stop(brake);
-    } 
-
-    Brain.Screen.setCursor(1, 1);
-    Brain.Screen.clearScreen();
-    Brain.Screen.print(y);
     
     // grab joystick positions
     // theta calc

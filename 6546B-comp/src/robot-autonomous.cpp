@@ -243,41 +243,57 @@ void goal_align_v2(bool side, vex::color goal_color){
   int center = 158;
   double original_inertial = inertial13.heading(deg);
   if(side == true){
+    // fwd
     while(!vision7.largestObject.exists){
     vision7.takeSnapshot(goal_color);
     }
     if(vision7.largestObject.centerX > center){
-          //turn right
+      // turn right
       leftside.spin(forward);
       rightside.spin(reverse);
+      // until equal or past
       waitUntil(vision7.largestObject.centerX <= center);
       drivemotors.stop(brake);
+      change_in_inertial = inertial13.heading(deg) - original_inertial;
     }
     else if(vision7.largestObject.centerX < center){
-          //turn left
+      // turn left
       leftside.spin(reverse);
       rightside.spin(forward);
+      // until equal or past
       waitUntil(vision7.largestObject.centerX >= center);
       drivemotors.stop(brake);
+      change_in_inertial = inertial13.heading(deg) - original_inertial;
+    }
+    else{
+      change_in_inertial = 0;
     }
   }
   else{
+    // reverse
     while(!vision5.largestObject.exists){
     vision5.takeSnapshot(goal_color);
     }
     if(vision5.largestObject.centerX > center){
-          //turn right
+      // turn right
       leftside.spin(forward);
       rightside.spin(reverse);
+      // until equal or past
       waitUntil(vision7.largestObject.centerX <= center);
       drivemotors.stop(brake);
+      change_in_inertial = inertial13.heading(deg) - original_inertial;
     }
     else if(vision5.largestObject.centerX < center){
-          //turn left
+      // turn left
       leftside.spin(reverse);
       rightside.spin(forward);
+      // until equal or past
       waitUntil(vision7.largestObject.centerX >= center);
       drivemotors.stop(brake);
+      change_in_inertial = inertial13.heading(deg) - original_inertial;
+    }
+    else{
+      change_in_inertial = 0;
     }
   }
 }

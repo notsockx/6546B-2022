@@ -36,6 +36,7 @@ extern digital_out ring_branch;
 
 // sensors
 extern vision vision7;
+extern vision vision5;
 extern gps DriveGPS;
 extern rotation rotationRight;
 extern rotation rotationLeft;

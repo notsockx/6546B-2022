@@ -14,6 +14,111 @@
 using namespace vex;
 
 // -- START OF DRIVETRAIN FUNCTIONS -- //
+void UddDrivetrain() {
+  // setup
+  double x;
+  double y;
+  double velo;
+  double bottom_out = 5;
+
+  leftside.setStopping(coast);
+  rightside.setStopping(coast);
+  
+  // left joystick controls angle robot goes towards
+  // right joystick up-down controls robot speed
+  while(1) {
+    x = Controller1.Axis4.position() / 127.0;
+    y = Controller1.Axis3.position() / 127.0;
+    velo = (Controller1.Axis2.value() + 127 + bottom_out) / 254;
+
+    if(velo > 1){
+      velo = 1;
+    }
+
+    if(x > 0){
+      leftside.spin(forward, 100 * velo, pct);
+      rightside_old.spin(forward, 100 * velo * y, pct);
+    }
+    else if ( x < 0){
+      leftside.spin(forward, 100 * velo * y, pct);
+      rightside_old.spin(forward, 100 * velo, pct);
+    }
+    else if( (x == 0) && (y != 0)){
+      leftside.spin(fwd, 100 * velo * y, pct);
+      rightside_old.spin(fwd, 100 * velo * y, pct);
+    }
+
+    if((x == 0) && (y == 0)) {
+      drivemotors.stop(brake);
+    } 
+
+    Brain.Screen.setCursor(1, 1);
+    Brain.Screen.clearScreen();
+    Brain.Screen.print(y);
+    
+    // grab joystick positions
+    // theta calc
+    /*
+    double x_pos = Controller1.Axis4.value() * 100 / 127;
+    double y_pos = Controller1.Axis4.value() * 100 / 127;
+
+    velo = (Controller1.Axis2.value() + 5) / 127 ;
+
+    if( (x_pos >= 0) && (y_pos > 0)){
+      leftside.spin(fwd, 100 * velo, pct);
+      rightside.spin(fwd, 100 * velo * y_pos, pct);
+      Brain.Screen.print("1");
+    } 
+    else if( (x_pos >= 0) && (y_pos < 0)){
+      leftside.spin(reverse, 100 * velo, pct);
+      rightside.spin(reverse, 100 * velo * y_pos, pct);
+      Brain.Screen.print("2");
+    } 
+    else if( (x_pos < 0) && (y_pos > 0)){
+      leftside.spin(fwd, 100 * velo * y_pos, pct);
+      rightside.spin(fwd, 100 * velo, pct);
+      Brain.Screen.print("3");
+    } 
+    else if( (x_pos < 0) && (y_pos < 0)){
+      leftside.spin(reverse, 100 * velo * y_pos, pct);
+      rightside.spin(reverse, 100 * velo, pct);
+      Brain.Screen.print("4");
+    } 
+    */
+    /*
+    x = Controller1.Axis4.value() * 100/127;
+    y = Controller1.Axis3.value() * 100/127;
+
+    leftside.spin(fwd, (x+y)/2, pct);
+    rightside.spin(reverse, (x-y)/2, pct);
+    */
+    
+    // // calculate theta
+    // if( x == 0 ) { theta = 0; }
+    // if(x<0) { theta = M_PI/2 + atan2(y,x); }
+    // else { theta = M_PI/2 - atan2(y,x); }
+
+    // // left joystick magnitude for speed
+    // v = sqrt(pow(x, 2) + pow(y, 2));
+    // if(v > 100) { v = 100; }
+    
+    // // right joystick for speed
+    // //v = Controller1.Axis1.value() * 100 / 127;
+
+    // if( x >= 0 ) {
+    //   leftside.spin(fwd, v, pct);
+    //   rightside.spin(fwd, (-2*v)/(M_PI) * theta + v, pct);
+    // }
+    // else {
+    //   leftside.spin(fwd, (2*v)/(M_PI) * theta + v, pct);
+    //   rightside.spin(fwd, v, pct);
+    // }
+    
+    vex::this_thread::sleep_for(100);
+  }
+}
+// -- END OF DRIVETRAIN FUNCTIONS -- //
+
 void ControlDrivetrain() {
   // setup
   double x;
@@ -28,6 +133,49 @@ void ControlDrivetrain() {
     // grab joystick positions
     x = Controller1.Axis4.value() * 100/127;
     y = Controller1.Axis3.value() * 100/127;
+
+    leftside.spin(fwd, (x+y)/2, pct);
+    rightside.spin(reverse, (x-y)/2, pct);
+
+    // // calculate theta
+    // if( x == 0 ) { theta = 0; }
+    // if(x<0) { theta = M_PI/2 + atan2(y,x); }
+    // else { theta = M_PI/2 - atan2(y,x); }
+
+    // // left joystick magnitude for speed
+    // v = sqrt(pow(x, 2) + pow(y, 2));
+    // if(v > 100) { v = 100; }
+    
+    // // right joystick for speed
+    // //v = Controller1.Axis1.value() * 100 / 127;
+
+    // if( x >= 0 ) {
+    //   leftside.spin(fwd, v, pct);
+    //   rightside.spin(fwd, (-2*v)/(M_PI) * theta + v, pct);
+    // }
+    // else {
+    //   leftside.spin(fwd, (2*v)/(M_PI) * theta + v, pct);
+    //   rightside.spin(fwd, v, pct);
+    // }
+    
+    vex::this_thread::sleep_for(100);
+  }
+}
+
+void SumedhDrivetrain() {
+  // setup
+  double x;
+  double y;
+
+  leftside.setStopping(coast);
+  rightside.setStopping(coast);
+  
+  // left joystick controls angle robot goes towards
+  // right joystick up-down controls robot speed
+  while(1) {
+    // grab joystick positions
+    x = Controller1.Axis4.value() * 100/127;
+    y = Controller1.Axis2.value() * 100/127;
 
     leftside.spin(fwd, (x+y)/2, pct);
     rightside.spin(reverse, (x-y)/2, pct);

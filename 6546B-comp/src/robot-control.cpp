@@ -15,86 +15,77 @@ using namespace vex;
 
 // -- START OF DRIVETRAIN FUNCTIONS -- //
 void UddDrivetrain() {
-  // setup
-  double x;
-  double y;
-  double velo;
-  double bottom_out = 5;
+  /* 
+  INTRODUCTION:
+  This version of drivebase code first works by
+  getting user input from the left joystick in order 
+  to calculate the desired angle the driver wants
+  the robot to drive in. The right joystick is then 
+  used to set how fast the drivebase moves in 
+  the specified direction.
+  */
 
+  // initialize variables
+  int x;       // x position of right stick
+  int y;       // y position of left stick
+  double theta;   // drivebase desired heading
+  double v;       // drivebase 'velocity' (not really though)
+  double vLeft;   // left motor velocity
+  double vRight;  // right motor velocity
+  
+  // set motor brake type
   leftside.setStopping(coast);
   rightside.setStopping(coast);
-  
-  // left joystick controls angle robot goes towards
-  // right joystick up-down controls robot speed
+
   while(1) {
-    x = Controller1.Axis4.position() / 127.0;
-    y = Controller1.Axis3.position() / 127.0;
-    velo = (Controller1.Axis2.value() + 127 + bottom_out) / 254;
+    // clear screen
+    Brain.Screen.clearScreen();
 
-    x = Controller1.Axis4.value() * 100/127;
-    y = Controller1.Axis3.value() * 100/127;
+    // get left joystick position
+    x = Controller1.Axis4.position();
+    y = Controller1.Axis3.position();
 
-    leftside.spin(fwd, (x+y) * velo, pct);
-    rightside.spin(reverse, (x-y) * velo, pct);
+    // get target velocity
+    v = Controller1.Axis2.position() * 0.5 + 50;
 
-    
-    // grab joystick positions
-    // theta calc
-    /*
-    double x_pos = Controller1.Axis4.value() * 100 / 127;
-    double y_pos = Controller1.Axis4.value() * 100 / 127;
+    // calculate target heading
+    theta = atan2(x,y);
 
-    velo = (Controller1.Axis2.value() + 5) / 127 ;
+    // calculate drivebase velocity
+    if (x==0 && y==0) { vLeft = 0; vRight = 0; }
+    else if(  Controller1.Axis3.position() >= 0 ) {  // positive velocities
+      if(theta >= 0) {  // quadrant 1 of joystick
+        vLeft = v;
+        vRight = (-2*v/M_PI_2) * theta + v;
+        // print quadrant
+        Brain.Screen.setCursor(5, 1);
+        Brain.Screen.print("Q: 1");
+      }
+      else {  // quadrant 2 of joystick
+        vLeft = (2*v/M_PI_2) * theta + v;
+        vRight = v;
+        Brain.Screen.setCursor(5, 1);
+        Brain.Screen.print("Q: 2");
+      }
+    }
+    else {  // negative velocities
+      if(theta < 0) {  // quadrant 3 of joystick
+        vLeft = -v;
+        vRight = (2*v/M_PI_2) * (theta+M_PI_2) + v;
+        Brain.Screen.setCursor(5, 1);
+        Brain.Screen.print("Q: 3");
+      }
+      else {  // quadrant 4 of joystick
+        vLeft = (-2*v/M_PI_2) * (theta-M_PI_2) + v;
+        vRight = -v;
+        Brain.Screen.setCursor(5, 1);
+        Brain.Screen.print("Q: 4");
+      }
+    }
 
-    if( (x_pos >= 0) && (y_pos > 0)){
-      leftside.spin(fwd, 100 * velo, pct);
-      rightside.spin(fwd, 100 * velo * y_pos, pct);
-      Brain.Screen.print("1");
-    } 
-    else if( (x_pos >= 0) && (y_pos < 0)){
-      leftside.spin(reverse, 100 * velo, pct);
-      rightside.spin(reverse, 100 * velo * y_pos, pct);
-      Brain.Screen.print("2");
-    } 
-    else if( (x_pos < 0) && (y_pos > 0)){
-      leftside.spin(fwd, 100 * velo * y_pos, pct);
-      rightside.spin(fwd, 100 * velo, pct);
-      Brain.Screen.print("3");
-    } 
-    else if( (x_pos < 0) && (y_pos < 0)){
-      leftside.spin(reverse, 100 * velo * y_pos, pct);
-      rightside.spin(reverse, 100 * velo, pct);
-      Brain.Screen.print("4");
-    } 
-    */
-    /*
-    x = Controller1.Axis4.value() * 100/127;
-    y = Controller1.Axis3.value() * 100/127;
-
-    leftside.spin(fwd, (x+y)/2, pct);
-    rightside.spin(reverse, (x-y)/2, pct);
-    */
-    
-    // // calculate theta
-    // if( x == 0 ) { theta = 0; }
-    // if(x<0) { theta = M_PI/2 + atan2(y,x); }
-    // else { theta = M_PI/2 - atan2(y,x); }
-
-    // // left joystick magnitude for speed
-    // v = sqrt(pow(x, 2) + pow(y, 2));
-    // if(v > 100) { v = 100; }
-    
-    // // right joystick for speed
-    // //v = Controller1.Axis1.value() * 100 / 127;
-
-    // if( x >= 0 ) {
-    //   leftside.spin(fwd, v, pct);
-    //   rightside.spin(fwd, (-2*v)/(M_PI) * theta + v, pct);
-    // }
-    // else {
-    //   leftside.spin(fwd, (2*v)/(M_PI) * theta + v, pct);
-    //   rightside.spin(fwd, v, pct);
-    // }
+    // spin drivetrain motors
+    leftside.spin(fwd, vLeft, pct);
+    rightside.spin(fwd, vRight, pct);
     
     vex::this_thread::sleep_for(100);
   }

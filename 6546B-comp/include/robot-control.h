@@ -4,6 +4,7 @@ using namespace vex;
 extern void ControlDrivetrain(void);
 extern void UddDrivetrain(void);
 extern void SumedhDrivetrain(void);
+extern void temp_monitor(void);
 // extern void ControlDrivetrain_6M(void);
 extern void ControlFourbar(void);
 extern void ControlTwobar(void);

@@ -27,3 +27,8 @@ extern void goal_align_v2(bool, vex::color);
 extern void arc_turn_ease(double, double, bool, double);
 extern void arc_turn(double, double, bool, double);
 // -- END OF ARC TURN -- //
+
+// -- START OF GOAL PICKUP -- //
+extern void back_claw_pickup(void);
+extern void back_claw_drop(void);
+// -- START OF GOAL PICKUP -- //

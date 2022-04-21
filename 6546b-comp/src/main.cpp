@@ -53,16 +53,16 @@ void pre_auton(void) {
   drivemotors.setVelocity(50, percent);
   ring_clamp.set(false);
   down_clamp.set(true);
+  front.set(false);
 
   intake.setVelocity(40, percent);
   intake.spin(forward);
 }
 
 void autonomous(void) {
-  // white route
-  // y_direction(-2.5);
-  goal_align_v2(false, yellow);
-  // y_direction(second_stage_goal_distance());
+
+  //snag middle goal
+
 }
 
 void usercontrol(void) {
@@ -73,7 +73,8 @@ void usercontrol(void) {
   // vex::thread a(TwoStick);
   //vex::thread a(ControlDrivetrain_6M);
   vex::thread b(ControlFourbar);
-  vex::thread c(ControlTwobar);
+  // vex::thread c(ControlTwobar);
+  vex::thread c(temp_monitor);
 
   // set up callbacks for controller buttons
   //Controller1.ButtonUp.pressed(toggleIntakeSpeed);

@@ -45,24 +45,25 @@ void ControlDrivetrain() {
     y = Controller1.Axis3.position();
 
     // get target velocity
-    //v = Controller1.Axis2.position();
-    v =  sqrt( pow( x, 2 ) + pow( y, 2 ));
-    if( v > 100 ) { v = 100; }
+    v = Controller1.Axis2.position() * 0.5 + 50;
+    //v =  sqrt( pow( x, 2 ) + pow( y, 2 ));
+    //if( v > 100 ) { v = 100; }
 
     // calculate target heading
     theta = atan2(x,y);
 
     // calculate drivebase velocity
-    if(  Controller1.Axis3.position() >= 0 ) {  // positive velocities
+    if (x==0 && y==0) { vLeft = 0; vRight = 0; }
+    else if(  Controller1.Axis3.position() >= 0 ) {  // positive velocities
       if(theta >= 0) {  // quadrant 1 of joystick
         vLeft = v;
-        vRight = -v/M_PI * theta + v;
+        vRight = (-2*v/M_PI_2) * theta + v;
         // print quadrant
         Brain.Screen.setCursor(5, 1);
         Brain.Screen.print("Q: 1");
       }
       else {  // quadrant 2 of joystick
-        vLeft = v/M_PI * theta + v;
+        vLeft = (2*v/M_PI_2) * theta + v;
         vRight = v;
         Brain.Screen.setCursor(5, 1);
         Brain.Screen.print("Q: 2");
@@ -71,12 +72,12 @@ void ControlDrivetrain() {
     else {  // negative velocities
       if(theta < 0) {  // quadrant 3 of joystick
         vLeft = -v;
-        vRight = v/M_PI * (theta+M_PI_2) + v;
+        vRight = (2*v/M_PI_2) * (theta+M_PI_2) + v;
         Brain.Screen.setCursor(5, 1);
         Brain.Screen.print("Q: 3");
       }
       else {  // quadrant 4 of joystick
-        vLeft = (-2*v)/M_PI_2 * (theta-M_PI_2) + v;
+        vLeft = (-2*v/M_PI_2) * (theta-M_PI_2) + v;
         vRight = -v;
         Brain.Screen.setCursor(5, 1);
         Brain.Screen.print("Q: 4");
@@ -84,7 +85,7 @@ void ControlDrivetrain() {
     }
 
     // spin drivetrain motors
-    leftside.spin(fwd, vRight, pct);
+    leftside.spin(fwd, vLeft, pct);
     rightside.spin(fwd, vRight, pct);
     
     // debug

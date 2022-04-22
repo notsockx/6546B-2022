@@ -35,6 +35,7 @@
 #include "math.h"
 #include "robot-control.h"
 #include "robot-autonomous.h"
+#include "auton-run.h"
 
 using namespace vex;
 
@@ -60,9 +61,7 @@ void pre_auton(void) {
 }
 
 void autonomous(void) {
-
-  //snag middle goal
-
+  left_yellow();
 }
 
 void usercontrol(void) {

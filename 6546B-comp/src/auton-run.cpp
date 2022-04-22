@@ -25,8 +25,9 @@ void right_yellow(void) {
 }
 
 void left_yellow(void) {
-  y_direction(3.9);   //forward
-  arc_turn(1/3, -29, true, 60);   //turn to align
+  y_direction(3.8);   //forward
+  arc_turn(1/5, -29, true, 60);   //turn to align
+  y_direction(0.35);
   front.set(true);   //clamp down, pick up yellow goal
 }
 // -- END OF GOAL PATHS -- //

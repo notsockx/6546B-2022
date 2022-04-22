@@ -14,20 +14,20 @@ using namespace vex;
 
 // -- START OF GOAL PATHS -- //
 void middle_yellow(void) {
-  y_direction(1.68);   //move forward
+  y_direction(1.68, 60);   //move forward
   arc_turn(1/2, 45, true, 60);   //turn to align bot to goal 
   front.set(true);   //clamp down, pick up goal
 }
 
 void right_yellow(void) { 
-  y_direction(4.18);   //forward
+  y_direction(4.18, 60);   //forward
   front.set(true);   //clamp down, pick up yellow goal
 }
 
 void left_yellow(void) {
-  y_direction(3.8);   //forward
-  arc_turn(1/5, -29, true, 60);   //turn to align
-  y_direction(0.35);
+  y_direction(3.8, 60);   //forward
+  arc_turn(1/5, -22, true, 60);   //turn to align
+  y_direction(1, 60);
   front.set(true);   //clamp down, pick up yellow goal
 }
 // -- END OF GOAL PATHS -- //
@@ -42,5 +42,8 @@ void white_run(void) {
 
 void blue_run(void) {
   left_yellow();   //earlier function
+  wait(20, msec);   //wait to ensure it clmaped properly
+  y_direction(-1.5, 60);   //reverse
+  normal_turning(25, 45);   //spot turn
 }
 // -- END OF RUNS PATHS -- //

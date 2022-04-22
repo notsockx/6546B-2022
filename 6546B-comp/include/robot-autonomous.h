@@ -6,7 +6,7 @@ extern double rotation_value;
 // -- END OF CONSTANTS -- //
 
 // -- START OF MOVEMENT -- //
-extern void y_direction(double);
+extern void y_direction(double, double);
 extern void y_direction_ease(double, double);
 // -- END OF BACKCLAMP FUNCTIONS -- //
 
@@ -15,7 +15,7 @@ extern void wheel_pivot(double, double, bool, double);
 // -- END OF WHEEL PIVOT -- //
 
 // -- START OF NORMAL TURNING -- //
-extern void normal_turning(double);
+extern void normal_turning(int, double);
 // -- END OF NORMAL TURNING -- //
 
 // -- START OF VISION SENSOR SHENAIGAINS -- //

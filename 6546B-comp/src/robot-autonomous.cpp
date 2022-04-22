@@ -25,9 +25,10 @@ double second_stage_constant = 1.68;
 double rotation_value = (rotationLeft.position(turns) + rotationRight.position(turns))/2;
 
 // move forward / back based on rotations
-void y_direction(double rot) {
+void y_direction(double rot, double speed) {
   rotationLeft.setPosition(0, turns);
   rotationRight.setPosition(0, turns);
+  drivemotors.setVelocity(speed, percent);
   if(rot > 0){
     drivemotors.spin(fwd);
     waitUntil( ( ( abs(rotationLeft.position(turns)) + abs(rotationRight.position(turns)) ) / 2 ) >= rot);
@@ -199,10 +200,8 @@ void arc_turn(double ratio, double angel, bool directions, double speed) {
       rightside.spin(reverse);
       if(currentAngel >= finalAngel) {
         drivemotors.stop(brake);
+        break;
       }
-    }
-    else if(currentAngel == finalAngel) {
-      break;
     }
   }
 }
@@ -214,27 +213,29 @@ void arc_turn(double ratio, double angel, bool directions, double speed) {
 //   double finalAngel = fmod(initAngel + deg + 360, 360);
 // }
 
-void normal_turning(double deg) {
-  double initAngel = inertial13.heading(degrees);
-  double currentAngel = initAngel;
-  double finalAngel = fmod(abs(initAngel + deg + 360), 360);
-  while(currentAngel != finalAngel) {
+void normal_turning(int deg, double speed) {
+  drivemotors.setVelocity(speed, percent);
+  int initAngel = inertial13.heading(degrees);
+  int currentAngel = initAngel;
+  int finalAngel = fmod(abs(initAngel + deg + 360), 360);
+  if(currentAngel != finalAngel) {
     currentAngel = inertial13.heading(degrees);
     //double velo = abs(finalAngel - currentAngel);
     if(initAngel > finalAngel) {
-      leftside.spin(forward);
-      rightside.spin(reverse);
-      if(currentAngel <= finalAngel) {
-        drivemotors.stop(brake);
-        break;
+      while(currentAngel <= finalAngel){
+        leftside.spin(forward);
+        rightside.spin(reverse);
       }
+      drivemotors.stop(brake);
     }
     else if(initAngel < finalAngel) {
-      leftside.spin(reverse);
-      rightside.spin(forward);
-      if(currentAngel >= finalAngel) {
-        drivemotors.stop(brake);
-        break;
+      while(true) {
+        leftside.spin(reverse);
+        rightside.spin(forward);
+        if(currentAngel >= finalAngel) {
+          drivemotors.stop(brake);
+          break;
+        }
       }
     }
   }

@@ -54,17 +54,15 @@ void pre_auton(void) {
   drivemotors.setVelocity(50, percent);
   ring_clamp.set(false);
   down_clamp.set(true);
-  front.set(false);
-
-  intake.setVelocity(40, percent);
-  intake.spin(forward);
 }
 
 void autonomous(void) {
-  left_yellow();
+  blue_run();
 }
 
 void usercontrol(void) {
+  intake.setVelocity(40, percent);
+  intake.spin(forward);
   // start threads
   // vex::thread a(ControlDrivetrain);
   vex::thread a(UddDrivetrain);

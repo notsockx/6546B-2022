@@ -30,9 +30,9 @@ motor Motor16 = motor(PORT16, ratio36_1, true);
 motor Motor17 = motor(PORT17, ratio36_1, false);
 motor Motor14 = motor(PORT14, ratio6_1, false);
 motor Motor12 = motor(PORT12, ratio6_1, true);
-motor Motor8 = motor(PORT9, ratio6_1, false);
+motor Motor8 = motor(PORT8, ratio6_1, false);
 motor Motor10 = motor(PORT10, ratio6_1, true);
-motor Motor8F = motor(PORT9, ratio6_1, true);
+motor Motor8F = motor(PORT8, ratio6_1, true);
 motor Motor10F = motor(PORT10, ratio6_1, false);
 
 // motor groups
@@ -53,10 +53,9 @@ digital_out ring_branch = digital_out(Brain.ThreeWirePort.A);
 vision vision7 = vision (PORT7, 50);
 vision vision5 = vision (PORT5, 50);
 gps DriveGPS = gps(PORT18, 0.00, 0.00, mm, 180);
-rotation rotationRight = rotation(PORT8, false);
-rotation rotationLeft = rotation(PORT12, true);
+rotation rotationRight = rotation(PORT9, false);
+rotation rotationLeft = rotation(PORT11, true);
 inertial inertial13 = inertial(PORT13);
-rotation rotationBar = rotation(PORT11, false);
 
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;

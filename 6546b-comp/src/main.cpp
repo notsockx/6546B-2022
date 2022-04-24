@@ -72,8 +72,7 @@ void usercontrol(void) {
   //vex::thread a(ControlDrivetrain_6M);
   vex::thread b(ControlFourbar);
   // vex::thread c(ControlTwobar);
-  vex::thread c(temp_monitor);
-  vex::thread d(debug_screen);
+  vex::thread c(debug_screen);
 
   // set up callbacks for controller buttons
   //Controller1.ButtonUp.pressed(toggleIntakeSpeed);

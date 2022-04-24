@@ -13,9 +13,48 @@ using namespace vex;
 
 // function to print to screen
 void debug_screen(){
+  // Motor Temp
+  Brain.Screen.setCursor(1, 1);
+  Brain.Screen.print("Drivebase average temperature is ");
+  Brain.Screen.print(drivemotors.temperature());
+  Brain.Screen.print(" celcius");
 
+
+  // Individual motors
+  Brain.Screen.setCursor(1,2);
+  Brain.Screen.print("Left motor 1: ");
+  Brain.Screen.print(Motor14.temperature());
+
+   Brain.Screen.setCursor(20,2);
+  Brain.Screen.print("Left motor 2: ");
+  Brain.Screen.print(Motor12.temperature());
+  
+  Brain.Screen.setCursor(1,3);
+  Brain.Screen.print("Right motor 1: ");
+  Brain.Screen.print(Motor10.temperature());
+
+  Brain.Screen.setCursor(20,3);
+  Brain.Screen.print("Right motor 2: ");
+  Brain.Screen.print(Motor18.temperature());
+  
+  // Current heading
+  Brain.Screen.setCursor(1, 4);
+  Brain.Screen.print("Current heading: ");
+  Brain.Screen.print(inertial13.heading());
+
+  // Rotation positions
+  Brain.Screen.setCursor(1, 4);
+  Brain.Screen.print("Left Rotation position: ");
+  Brain.Screen.print(rotationLeft.position(turns));
+
+  Brain.Screen.setCursor(1, 27);
+  Brain.Screen.print("Right Rotation position: ");
+  Brain.Screen.print(rotationRight.position(turns));
+
+  vex::this_thread::sleep_for(100);
 }
 
+// -- Redundant functions since functions can't be imported into print statements on the brain -- //
 // system average temp
 double avg_motor_temp(){
   return drivemotors.temperature();

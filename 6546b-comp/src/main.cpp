@@ -36,6 +36,7 @@
 #include "robot-control.h"
 #include "robot-autonomous.h"
 #include "auton-run.h"
+#include "brain-debug.h"
 
 using namespace vex;
 
@@ -72,6 +73,7 @@ void usercontrol(void) {
   vex::thread b(ControlFourbar);
   // vex::thread c(ControlTwobar);
   vex::thread c(temp_monitor);
+  vex::thread d(debug_screen);
 
   // set up callbacks for controller buttons
   //Controller1.ButtonUp.pressed(toggleIntakeSpeed);

@@ -28,12 +28,12 @@ motor twobar = motor(PORT6, ratio18_1, false);
 motor intake = motor(PORT19, ratio6_1, false);
 motor Motor16 = motor(PORT16, ratio36_1, true);
 motor Motor17 = motor(PORT17, ratio36_1, false);
-motor Motor14 = motor(PORT14, ratio6_1, false);
-motor Motor12 = motor(PORT12, ratio6_1, true);
-motor Motor8 = motor(PORT8, ratio6_1, false);
-motor Motor10 = motor(PORT10, ratio6_1, true);
-motor Motor8F = motor(PORT8, ratio6_1, true);
-motor Motor10F = motor(PORT10, ratio6_1, false);
+motor Motor14 = motor(PORT14, ratio6_1, true);
+motor Motor12 = motor(PORT12, ratio6_1, false);
+motor Motor8 = motor(PORT8, ratio6_1, true);
+motor Motor10 = motor(PORT10, ratio6_1, false);
+motor Motor8F = motor(PORT8, ratio6_1, false);
+motor Motor10F = motor(PORT10, ratio6_1, true);
 
 // motor groups
 motor_group fourbar(Motor16, Motor17);

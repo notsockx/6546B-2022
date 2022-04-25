@@ -219,24 +219,22 @@ void normal_turning(int deg, double speed) {
   int currentAngel = initAngel;
   int finalAngel = fmod(abs(initAngel + deg + 360), 360);
   if(currentAngel != finalAngel) {
-    currentAngel = inertial13.heading(degrees);
     //double velo = abs(finalAngel - currentAngel);
     if(initAngel > finalAngel) {
       while(currentAngel <= finalAngel){
         leftside.spin(forward);
         rightside.spin(reverse);
+        currentAngel = inertial13.heading(degrees);
       }
       drivemotors.stop(brake);
     }
     else if(initAngel < finalAngel) {
-      while(true) {
+      while(currentAngel >= finalAngel) {
         leftside.spin(reverse);
         rightside.spin(forward);
-        if(currentAngel >= finalAngel) {
-          drivemotors.stop(brake);
-          break;
-        }
+        currentAngel = inertial13.heading(degrees);
       }
+      drivemotors.stop(brake);
     }
   }
 }

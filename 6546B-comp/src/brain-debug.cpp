@@ -35,7 +35,7 @@ void debug_screen(){
 
   Brain.Screen.setCursor(20,3);
   Brain.Screen.print("Right motor 2: ");
-  Brain.Screen.print(Motor18.temperature());
+  Brain.Screen.print(Motor8.temperature());
   
   // Current heading
   Brain.Screen.setCursor(1, 4);
@@ -56,6 +56,7 @@ void debug_screen(){
 
 // -- Redundant functions since functions can't be imported into print statements on the brain -- //
 // system average temp
+/*
 double avg_motor_temp(){
   return drivemotors.temperature();
 }
@@ -94,3 +95,4 @@ double l_distance(){
 double r_distance(){
   return rotationRight.position(turns);
 }
+*/

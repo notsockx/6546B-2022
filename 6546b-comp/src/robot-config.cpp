@@ -40,8 +40,8 @@ motor_group fourbar(Motor16, Motor17);
 motor_group leftside(Motor14, Motor12);
 motor_group rightside(Motor8, Motor10);
 motor_group rightside_old(Motor8F, Motor10F);
-motor_group drivemotors(Motor9, Motor10, Motor14, Motor15);
-motor_group drivemotors_old(Motor8F, Motor10F, Motor14, Motor15);
+motor_group drivemotors(Motor8, Motor10, Motor14, Motor12);
+motor_group drivemotors_old(Motor8F, Motor10F, Motor14, Motor12);
 
 // digital out
 digital_out front = digital_out(Brain.ThreeWirePort.B);

@@ -16,14 +16,12 @@ extern motor intake;
 extern motor Motor16;
 extern motor Motor17;
 extern motor Motor14;
-extern motor Motor15;
-extern motor Motor9;
 
 // drive motors
 extern motor Motor10;
 extern motor Motor12;
 extern motor Motor14;
-extern motor Motor18;
+extern motor Motor8;
 
 // motor groups
 extern motor_group fourbar;

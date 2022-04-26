@@ -41,14 +41,14 @@ void UddDrivetrain() {
   while(1) {
     x = Controller1.Axis4.position() / 127.0;
     y = Controller1.Axis3.position() / 127.0;
-    velo = (Controller1.Axis2.value() + 127 + bottom_out) / 127;
+    velo = (Controller1.Axis2.value() + 127 + bottom_out) / 254;
     // double approaching_x = abs(Controller1.Axis3.position())/ 127 + 25;
 
     x = Controller1.Axis4.value() * 100/127;
     y = Controller1.Axis3.value() * 100/127;
 
     leftside.spin(fwd, ((x+y) * velo), pct);
-    rightside.spin(fwd, ((x-y) * velo), pct);
+    rightside.spin(reverse, ((x-y) * velo), pct);
   
     // grab joystick positions
     // theta calc
@@ -129,7 +129,7 @@ void ControlDrivetrain() {
     y = Controller1.Axis3.value() * 100/127;
 
     leftside.spin(fwd, (x+y)/2, pct);
-    rightside.spin(fwd, (x-y)/2, pct);
+    rightside.spin(reverse, (x-y)/2, pct);
 
     // // calculate theta
     // if( x == 0 ) { theta = 0; }
@@ -172,7 +172,7 @@ void SumedhDrivetrain() {
     y = Controller1.Axis2.value() * 100/127;
 
     leftside.spin(fwd, (x+y)/2, pct);
-    rightside.spin(fwd, (x-y)/2, pct);
+    rightside.spin(reverse, (x-y)/2, pct);
 
     // // calculate theta
     // if( x == 0 ) { theta = 0; }

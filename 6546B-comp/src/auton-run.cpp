@@ -25,14 +25,11 @@ void right_yellow(void) {
 }
 
 void left_yellow(void) {
-<<<<<<< HEAD
   y_direction(3.8, 60);   //forward
   arc_turn(1/5, -22, true, 60);   //turn to align
   y_direction(1, 60);
-=======
-  y_direction(3.9);   //forward
+  y_direction(3.9, 60);   //forward
   arc_turn(1/3, -29, true, 60);   //turn to align
->>>>>>> parent of 45b826a (auton)
   front.set(true);   //clamp down, pick up yellow goal
 }
 // -- END OF GOAL PATHS -- //

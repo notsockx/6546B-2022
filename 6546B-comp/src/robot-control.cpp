@@ -47,8 +47,8 @@ void UddDrivetrain() {
     x = Controller1.Axis4.value() * 100/127;
     y = Controller1.Axis3.value() * 100/127;
 
-    leftside.spin(fwd, ((x+y) * velo), pct);
-    rightside.spin(reverse, ((x-y) * velo), pct);
+    leftside.spin(reverse, ((x+y) * velo), pct);
+    rightside.spin(fwd, ((x-y) * velo), pct);
   
     // grab joystick positions
     // theta calc

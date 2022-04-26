@@ -35,11 +35,10 @@
 #include "math.h"
 #include "robot-control.h"
 #include "robot-autonomous.h"
-<<<<<<< HEAD
+
 #include "auton-run.h"
 #include "brain-debug.h"
-=======
->>>>>>> parent of 45b826a (auton)
+
 
 using namespace vex;
 
@@ -62,13 +61,10 @@ void pre_auton(void) {
 }
 
 void autonomous(void) {
-<<<<<<< HEAD
   blue_run();
-=======
 
   //snag middle goal
 
->>>>>>> parent of 45b826a (auton)
 }
 
 void usercontrol(void) {

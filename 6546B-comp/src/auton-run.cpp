@@ -46,6 +46,6 @@ void blue_run(void) {
   left_yellow();   //earlier function
   wait(20, msec);   //wait to ensure it clmaped properly
   y_direction(-1.5, 60);   //reverse
-  normal_turning(25, 45);   //spot turn
+  arc_turn(1, 90, false, 70);   //spot turn
 }
 // -- END OF RUNS PATHS -- //

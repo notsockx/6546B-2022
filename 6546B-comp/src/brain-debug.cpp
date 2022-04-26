@@ -9,49 +9,37 @@
 #include "vex.h"
 #include "math.h"
 #include "robot-config.h"
+#include "robot-control.h"
 using namespace vex;
 
 // function to print to screen
 
-
-void piston_count() {
-  int count = 0;
-  while (1) {
-    if((Controller1.ButtonLeft.pressing()) || (Controller1.ButtonDown.pressing()) || (Controller1.ButtonB.pressing())){
-      count = count + 1;
-      wait(1, sec);
-    }
-  }
-}
-
-
-
-
 void debug_screen(){
   while(1) {
+    int num_piston = piston_count;
     Brain.Screen.clearScreen();
     // Motor Temp
     Brain.Screen.setCursor(1, 1);
     Brain.Screen.print("Drivebase average temperature is: ");
-    Brain.Screen.print(drivemotors.temperature());
+    Brain.Screen.print(drivemotors.temperature(celsius));
     Brain.Screen.print(" celcius");
 
     // Individual motors
     Brain.Screen.setCursor(2, 1);
     Brain.Screen.print("Left motor 1: ");
-    Brain.Screen.print(Motor14.temperature());
+    Brain.Screen.print(Motor14.temperature(celsius));
 
     Brain.Screen.setCursor(3,1);
     Brain.Screen.print("Left motor 2: ");
-    Brain.Screen.print(Motor12.temperature());
+    Brain.Screen.print(Motor12.temperature(celsius));
     
     Brain.Screen.setCursor(4, 1);
     Brain.Screen.print("Right motor 1: ");
-    Brain.Screen.print(Motor10.temperature());
+    Brain.Screen.print(Motor10.temperature(celsius));
 
     Brain.Screen.setCursor(5,1);
     Brain.Screen.print("Right motor 2: ");
-    Brain.Screen.print(Motor8.temperature());
+    Brain.Screen.print(Motor8.temperature(celsius));
     
     // Current heading
     Brain.Screen.setCursor(6, 1);
@@ -70,7 +58,7 @@ void debug_screen(){
     //amount of time piston is pressed
     Brain.Screen.setCursor(9, 0);
     Brain.Screen.print("Piston's been pressed: ");
-    Brain.Screen.print(piston_count);
+    Brain.Screen.print(num_piston);
 
     vex::this_thread::sleep_for(100);
   }

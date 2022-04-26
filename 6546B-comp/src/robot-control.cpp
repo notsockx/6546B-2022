@@ -13,6 +13,8 @@
 #include "robot-config.h"
 using namespace vex;
 
+int piston_count = 0;
+
 // -- START OF TEMP MONITOR -- //
 void temp_monitor(){
   while (1) {
@@ -200,32 +202,6 @@ void SumedhDrivetrain() {
 }
 // -- END OF DRIVETRAIN FUNCTIONS -- //
 
-// -- START OF 6 Motor FUNCTIONS -- //
-/*
-void ControlDrivetrain_6M() {
-  // setup
-  double x;
-  double y;
-  double v;
-  double theta;
-
-  leftside_6M.setStopping(coast);
-  rightside_6M.setStopping(coast);
-  
-  // left joystick controls angle robot goes towards
-  // right joystick up-down controls robot speed
-  while(1) {
-    x = Controller1.Axis4.value() * 100 / 127;
-    y = Controller1.Axis3.value() * 100 / 127;
-
-    rightside_6M.spin(reverse, (x - y)/2, pct);
-    leftside_6M.spin(fwd, (x + y)/2, pct);
-    vex::this_thread::sleep_for(10);
-  }
-}
-*/
-// -- END OF 6 Motor FUNCTIONS -- //
-
 
 // -- START OF TWOSTICK DRIVE -- //
 void TwoStick() {
@@ -326,10 +302,12 @@ void ToggleBackclamp() {
   down_clamp.set(!down_clamp.value());
   wait(200, msec);
   ring_clamp.set(!ring_clamp.value());
+  piston_count++;
 }
 
 void ResetBackclamp() {
   down_clamp.set(true);
   ring_clamp.set(true);
+  piston_count++;
 }
 // -- END OF BACKCLAMP FUNCTIONS -- //

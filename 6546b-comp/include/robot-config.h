@@ -35,7 +35,6 @@ extern motor_group rightside_old;
 extern digital_out front;
 extern digital_out down_clamp;
 extern digital_out ring_clamp;
-extern digital_out ring_branch;
 
 // sensors
 extern vision vision7;

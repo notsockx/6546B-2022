@@ -16,3 +16,6 @@ extern void ToggleFrontclamp(void);
 extern void ToggleBackclamp(void);
 extern void ResetBackclamp(void);
 extern void otherintake(void);
+
+//variables
+extern int piston_count;

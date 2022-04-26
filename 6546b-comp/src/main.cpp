@@ -60,10 +60,7 @@ void pre_auton(void) {
 }
 
 void autonomous(void) {
-  blue_run();
-
-  //snag middle goal
-
+  middle_yellow();
 }
 
 void usercontrol(void) {
@@ -87,7 +84,7 @@ void usercontrol(void) {
   //Controller1.ButtonX.pressed();
   Controller1.ButtonB.pressed(ToggleBackclamp);
   Controller1.ButtonY.pressed(otherintake);
-//"I love this table thats why im hitting it" - anna (wife abuser)
+  //"I love this table thats why im hitting it" - anna (wife abuser)
   while (true) {
     vex::this_thread::sleep_for(10);  // dont hog cpu
   }

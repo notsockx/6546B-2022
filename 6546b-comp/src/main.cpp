@@ -66,8 +66,8 @@ void usercontrol(void) {
   intake.spin(forward);
   // start threads
   // vex::thread a(ControlDrivetrain);
-  //vex::thread a(UddDrivetrain);
-  vex::thread a(SumedhDrivetrain);
+  vex::thread a(UddDrivetrain);
+  // vex::thread a(SumedhDrivetrain);
   // vex::thread a(TwoStick);
   //vex::thread a(ControlDrivetrain_6M);
   vex::thread b(ControlFourbar);

@@ -86,8 +86,8 @@ void usercontrol(void) {
   Controller1.ButtonLeft.pressed(ResetBackclamp); 
   //Controller1.ButtonX.pressed();
   Controller1.ButtonB.pressed(ToggleBackclamp);
-  Controller1.ButtonY.pressed(ResetBackclamp);
-
+  Controller1.ButtonY.pressed(otherintake);
+//"I love this table thats why im hitting it" - anna (wife abuser)
   while (true) {
     vex::this_thread::sleep_for(10);  // dont hog cpu
   }

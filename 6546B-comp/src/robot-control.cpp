@@ -268,6 +268,14 @@ void ToggleIntake() {
   }
 }
 
+void otherintake() {
+  if(intake.velocity(pct) != 0) {
+    intake.stop(coast);
+  }
+  else {
+    intake.spin(reverse, intakespeed, pct);
+  }
+}
 // -- END OF INTAKE FUNCTIONS -- //
 
 // -- START OF FOURBAR FUNCTIONS -- //

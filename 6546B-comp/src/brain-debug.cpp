@@ -12,6 +12,21 @@
 using namespace vex;
 
 // function to print to screen
+
+
+void piston_count() {
+  int count = 0;
+  while (1) {
+    if((Controller1.ButtonLeft.pressing()) || (Controller1.ButtonDown.pressing()) || (Controller1.ButtonB.pressing())){
+      count = count + 1;
+      wait(1, sec);
+    }
+  }
+}
+
+
+
+
 void debug_screen(){
   while(1) {
     Brain.Screen.clearScreen();
@@ -51,6 +66,11 @@ void debug_screen(){
     Brain.Screen.setCursor(8, 1);
     Brain.Screen.print("Right Rotation position: ");
     Brain.Screen.print(rotationRight.position(turns));
+
+    //amount of time piston is pressed
+    Brain.Screen.setCursor(9, 0);
+    Brain.Screen.print("Piston's been pressed: ");
+    Brain.Screen.print(piston_count);
 
     vex::this_thread::sleep_for(100);
   }

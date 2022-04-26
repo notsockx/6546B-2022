@@ -56,6 +56,7 @@ void pre_auton(void) {
 
   // reset pneumatics
   drivemotors.setVelocity(50, percent);
+  
   ring_clamp.set(false);
   down_clamp.set(true);
 }

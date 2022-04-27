@@ -15,9 +15,9 @@ using namespace vex;
 // function to print to screen
 
 void debug_screen(){
+  Brain.Screen.clearScreen();
   while(1) {
     int num_piston = piston_count;
-    Brain.Screen.clearScreen();
     // Motor Temp
     Brain.Screen.setCursor(1, 1);
     Brain.Screen.print("Drivebase average temperature is: ");

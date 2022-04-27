@@ -37,6 +37,7 @@
 #include "robot-autonomous.h"
 #include "auton-run.h"
 #include "brain-debug.h"
+#include "intake-velo-test.h"
 
 
 using namespace vex;
@@ -60,7 +61,10 @@ void pre_auton(void) {
 }
 
 void autonomous(void) {
-  middle_yellow();
+  // velo testing vs intake
+  velo_test(5);
+
+  // middle_yellow();
 }
 
 void usercontrol(void) {

@@ -30,12 +30,12 @@ void y_direction(double rot, double speed) {
   rotationRight.setPosition(0, turns);
   drivemotors.setVelocity(speed, percent);
   if(rot > 0){
-    drivemotors.spin(fwd);
+    drivemotors.spin(reverse);
     waitUntil( ( ( abs(rotationLeft.position(turns)) + abs(rotationRight.position(turns)) ) / 2 ) >= rot);
     drivemotors.stop(brake);
   }
   else{
-    drivemotors.spin(reverse);
+    drivemotors.spin(fwd);
     waitUntil( -( ( abs(rotationLeft.position(turns)) + abs(rotationRight.position(turns)) ) / 2 ) <= rot);
     drivemotors.stop(brake);
   }
@@ -162,7 +162,7 @@ void arc_turning_v2(double ratio, double angel, bool directions, double speed){
 // pivot on oneside of wheel while driving
 void arc_turn(double ratio, double angel, bool directions, double speed) {
   angel = -angel;
-  if(directions == true) {
+  if(directions == false) {
     if(angel > 0) {
       leftside.setVelocity(speed, percent);
       rightside.setVelocity((speed*ratio), percent);
@@ -172,7 +172,7 @@ void arc_turn(double ratio, double angel, bool directions, double speed) {
       leftside.setVelocity((speed*ratio), percent);
     }
   }
-  else if(directions == false) {
+  else if(directions == true) {
     if(angel > 0) {
        rightside.setVelocity(-speed, percent);
        leftside.setVelocity(-(speed*ratio), percent);

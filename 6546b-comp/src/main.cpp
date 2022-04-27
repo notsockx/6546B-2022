@@ -51,7 +51,7 @@ void pre_auton(void) {
   // set positions to zero
   rotationLeft.setPosition(0, turns);
   rotationRight.setPosition(0, turns);
-  inertial13.setHeading(0, degrees);
+  inertial13.calibrate();
 
   // reset pneumatics
   drivemotors.setVelocity(50, percent);
@@ -62,7 +62,7 @@ void pre_auton(void) {
 
 void autonomous(void) {
   // velo testing vs intake
-  velo_test(5);
+  white_run();
 
   // middle_yellow();
 }

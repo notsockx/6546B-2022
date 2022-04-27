@@ -29,6 +29,6 @@ extern void arc_turn(double, double, bool, double);
 // -- END OF ARC TURN -- //
 
 // -- START OF GOAL PICKUP -- //
-extern void back_claw_pickup(void);
-extern void back_claw_drop(void);
+extern void back_goal_pickup(void);
+extern void back_goal_drop(void);
 // -- START OF GOAL PICKUP -- //

@@ -14,14 +14,14 @@ using namespace vex;
 
 // -- START OF MIDDLE GOAL PATHS -- //
 void middle_yellow(void) {
-  y_direction(1.68, 60);   //move forward
+  y_direction(1.68, 100);   //move forward
   arc_turn(1/2, 45, true, 60);   //turn to align bot to goal 
-  y_direction(2, 60);
+  y_direction(2, 100);
   front.set(true);   //clamp down, pick up goal
 }
 
 void right_yellow(void) { 
-  y_direction(4.18, 60);   //forward
+  y_direction(4.2, 100);   //forward
   front.set(true);   //clamp down, pick up yellow goal
 }
 
@@ -42,8 +42,10 @@ void left_yellow(void) {
 void white_run(void) {
   //BEGIN FACING THE MIDDLE RIGHT
   right_yellow();   //earlier function
-  arc_turn_ease(2/2.5, 24, false, 60);   //back up to blue goal
-  back_claw_pickup();   //pick up blue goal
+  y_direction(-0.5, 100);
+  arc_turn(1/2, -66, false, 60);   //back up to alliance goal
+  y_direction(-1, 100);
+  back_goal_pickup();   //pick up alliance goal
 }
 
 //left yellow, then left alliance
@@ -61,7 +63,7 @@ void right_winpoint(void) {
   //BEGIN WITH BACK FACING THE RIGHT ALLIANCE GOAL
   y_direction(-1.6, 80);   //drive to the alliance goal
   wait(20, msec);
-  back_claw_pickup();   //clamp onto the goal
+  back_goal_pickup();   //clamp onto the goal
   intake.spin(forward);
   arc_turn(1, -135, true, 80);   //turn to align with the donut line
   y_direction(0.5, 80);   //spin forward to get donuts
@@ -79,14 +81,18 @@ void left_winpoint(void) {
   y_direction(-2.7, 100);   //reverse back to original area, go a bit further
   arc_turn(1/2, 15, true, 70);   //turn to align with the goal
   y_direction(-2.6, 100);   //reverse into the goal
-  back_claw_pickup();   //pick up the goal
+  back_goal_pickup();   //pick up the goal
   intake.spin(forward);   //shoot donuts into the goal
 }
 
-
-//middle goal the left alliance
-void mid_to_right(void) {
-  middle_yellow();
+//start righ, get middle goal then get left alliance goal
+void orange_run(void) {
+  //START WITH BOT RIGHT EDGE ALIGNED WITH MAT EDGe
+  middle_yellow();   //earlier function
+  y_direction(-1, 100);   //reverse 
+  arc_turn(1, -90, false, 70);   //spot turn, to align with middle donuts (back is supposed to align)
+  y_direction(-3, 100);   //reverse into donuts, end up near goal
+  //NOT DONEEE AHHHHH
 }
 
 // -- END OF RUNS PATHS -- //

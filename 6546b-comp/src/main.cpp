@@ -62,7 +62,7 @@ void pre_auton(void) {
 
 void autonomous(void) {
   // velo testing vs intake
-  white_run();
+  right_winpoint();
 
   // middle_yellow();
 }

@@ -43,7 +43,7 @@ void white_run(void) {
   //BEGIN FACING THE MIDDLE RIGHT
   right_yellow();   //earlier function
   y_direction(-0.5, 100);
-  arc_turn(1/2, -66, false, 60);   //back up to alliance goal
+  arc_turn(1/2, -30, true, 60);   //back up to alliance goal
   y_direction(-1, 100);
   back_goal_pickup();   //pick up alliance goal
 }

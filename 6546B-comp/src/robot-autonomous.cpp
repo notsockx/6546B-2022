@@ -41,6 +41,31 @@ void y_direction(double rot, double speed) {
   }
 }
 
+//beginning encoder
+void auto_align(double rot, double speed) {
+  if(rot > 0){
+    drivemotors.spin(reverse);
+    waitUntil(((abs(rotationLeft.position(turns)) + abs(rotationRight.position(turns)))/2) >= rot);
+    drivemotors.stop(brake);
+  }
+  else{
+    drivemotors.spin(fwd);
+    waitUntil(-((abs(rotationLeft.position(turns)) + abs(rotationRight.position(turns)))/2) <= rot);
+    drivemotors.stop(brake);
+  }
+
+  if(abs(rotationLeft.position(turns)) > abs(rotationRight.position(turns))) {
+    while(abs(rotationLeft.position(turns)) > abs(rotationRight.position(turns))) {
+      rightside.spin(forward);
+    }
+  }
+  else{
+    while(abs(rotationRight.position(turns)) > abs(rotationLeft.position(turns))) {
+      leftside.spin(forward);
+    }
+  }
+}
+
 
 // move forward / back based on velocity
 void y_direction_ease(double rot, double initVelo) {
@@ -163,21 +188,21 @@ void arc_turning_v2(double ratio, double angel, bool directions, double speed){
 void arc_turn(double ratio, double angel, bool directions, double speed) {
   angel = -angel;
   if(directions == false) {
-    if(angel > 0) {
+    if(angel < 0) {
       leftside.setVelocity(speed, percent);
       rightside.setVelocity((speed*ratio), percent);
     }
-    else if(angel < 0) {
+    else if(angel > 0) {
       rightside.setVelocity(speed, percent);
       leftside.setVelocity((speed*ratio), percent);
     }
   }
   else if(directions == true) {
-    if(angel > 0) {
+    if(angel < 0) {
        rightside.setVelocity(-speed, percent);
        leftside.setVelocity(-(speed*ratio), percent);
     }
-    else if(angel < 0) {
+    else if(angel > 0) {
        leftside.setVelocity(-speed, percent);
        rightside.setVelocity(-(speed*ratio), percent);
     }
@@ -193,6 +218,7 @@ void arc_turn(double ratio, double angel, bool directions, double speed) {
       rightside.spin(forward);
       if(currentAngel <= finalAngel) {
         drivemotors.stop(brake);
+        break;
       }
     }
     else if(initAngel < finalAngel) {
@@ -379,14 +405,14 @@ double second_stage_goal_distance(){
 
 // -- START OF BACKCLAMP FUNCTIONS -- //
 void back_goal_pickup(){
-  down_clamp.set(true);
+  down_clamp.set(false);
   wait(200, msec);
-  ring_clamp.set(false);
+  ring_clamp.set(true);
 }
 
 void back_goal_drop(){
-  ring_clamp.set(true);
+  ring_clamp.set(false);
   wait(200, msec);
-  down_clamp.set(false);
+  down_clamp.set(true);
 }
 // -- END OF BACKCLAMP FUNCTIONS -- //

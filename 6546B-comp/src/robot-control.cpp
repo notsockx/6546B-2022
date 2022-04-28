@@ -302,12 +302,12 @@ void ToggleBackclamp() {
   down_clamp.set(!down_clamp.value());
   wait(200, msec);
   ring_clamp.set(!ring_clamp.value());
-  piston_count++;
+  piston_count = piston_count + 3;
 }
 
 void ResetBackclamp() {
   down_clamp.set(true);
   ring_clamp.set(true);
-  piston_count++;
+  piston_count = piston_count + 2;
 }
 // -- END OF BACKCLAMP FUNCTIONS -- //

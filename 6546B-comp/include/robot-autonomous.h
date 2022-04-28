@@ -8,6 +8,7 @@ extern double rotation_value;
 // -- START OF MOVEMENT -- //
 extern void y_direction(double, double);
 extern void y_direction_ease(double, double);
+extern void auto_align(double, double);
 // -- END OF BACKCLAMP FUNCTIONS -- //
 
 // -- START OF WHEEL PIVOT -- //

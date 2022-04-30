@@ -55,19 +55,23 @@ void pre_auton(void) {
 
   drivemotors.setVelocity(50, percent);
   ring_clamp.set(false);
-  down_clamp.set(true);
+  down_clamp.set(false);
+  front.set(false);
   // fourbar.resetPosition();
 }
 
 void autonomous(void) {
   // velo testing vs intake
-  white_run();
-  // middle_yellow();
+  ring_clamp.set(true);
+  down_clamp.set(false);
+  right_winpoint();
 }
 
 void usercontrol(void) {
   intake.setVelocity(40, percent);
   intake.spin(forward);
+  ring_clamp.set(true);
+  down_clamp.set(false);
   // start threads
   // vex::thread a(ControlDrivetrain);
   vex::thread a(UddDrivetrain);
@@ -95,6 +99,7 @@ void usercontrol(void) {
 // -- DO NOT CHANGE -- //
 int main() {
   // Set up callbacks for autonomous and driver control periods.
+  
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 

@@ -405,14 +405,14 @@ double second_stage_goal_distance(){
 
 // -- START OF BACKCLAMP FUNCTIONS -- //
 void back_goal_pickup(){
-  down_clamp.set(false);
+  down_clamp.set(true);
   wait(200, msec);
-  ring_clamp.set(true);
+  ring_clamp.set(false);
 }
 
 void back_goal_drop(){
-  ring_clamp.set(false);
+  ring_clamp.set(true);
   wait(200, msec);
-  down_clamp.set(true);
+  down_clamp.set(false);
 }
 // -- END OF BACKCLAMP FUNCTIONS -- //

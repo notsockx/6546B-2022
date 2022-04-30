@@ -31,7 +31,7 @@ void middle_yellow(void) {
 }
 
 void right_yellow(void) { 
-  y_direction(4.17, 100);   //forward
+  y_direction(4.17, 95);   //forward
   front.set(true);   //clamp down, pick up yellow goal
 }
 
@@ -63,18 +63,19 @@ void white_run(void) {
   back_goal_pickup();   //pick up alliance goal
   wait(100, msec);   //ensure goal is picekd up
   y_direction(1, 100);   //forward to get goal out of alliance line
-  arc_turn(1, -20, true, 60);   //turn to face the donuts
+  arc_turn(1, -30, true, 60);   //turn to face the donuts
   fourbar.spinFor(forward, 0.5, turns);   //lift the lift to get the donuts
-  intake.setVelocity(175, rpm);   //speed for donuts
+  intake.setVelocity(50, percent);   //speed for donuts
   intake.spin(forward);   //take the donuts
   y_direction(1, 100);   //get the donuts slay
+  y_direction(-2, 80);
 }
 
 //left yellow, then left alliance
 void blue_run(void) {
   //BEGIN WITH LEFT SIDE OF INTAKE AGAINST THE RIGHT SIDE OF MAT EDGE
   left_yellow();   //earlier function
-  wait(20, msec);   //wait to ensure it clmaped properly
+  wait(200, msec);   //wait to ensure it clmaped properly
   y_direction(-1.5, 60);   //reverse
   arc_turn(-1, 90, false, 70);   //spot turn
   y_direction(2, 60);   //reverse into the goal, yass slay.
@@ -86,13 +87,16 @@ void blue_run(void) {
 
 //right alliance, then donuts
 void right_winpoint(void) {
-  //BEGIN WITH BACK FACING THE RIGHT ALLIANCE GOAL
-  y_direction(-1.6, 80);   //drive to the alliance goal
-  wait(20, msec);
+  //BEGIN WITH BACK FACING THE RIGHT ALLIANCE GOAL (RIGHT FRONT CORNER TOUCHING THE MAT EDGE)
+  y_direction(-2.1, 70);   //drive to the alliance goal
   back_goal_pickup();   //clamp onto the goal
+  wait(200, msec);
+  intake.setVelocity(50, pct);
   intake.spin(forward);
-  arc_turn(1, -135, true, 80);   //turn to align with the donut line
-  y_direction(0.5, 80);   //spin forward to get donuts
+  y_direction(0.2, 70);
+  arc_turn(1, -110, true, 80);   //turn to align with the donut line
+  y_direction(3.5, 50);   //spin forward to get donuts
+  y_direction(-4, 60);
 }
 
 //start intake, get donuts, stop intake, get goal, drop donuts into goal.

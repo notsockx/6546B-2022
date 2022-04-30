@@ -1,5 +1,6 @@
 # mac users
 .DS_Store
+newdrive
 
 # Prerequisites
 *.d
@@ -33,3 +34,8 @@
 *.exe
 *.out
 *.app
+6546b-comp/compile_commands.json
+6546B-comp/build/uddstick.map
+6546B-comp/build/uddstick.elf
+6546B-comp/build/uddstick.bin
+6546B-comp/udd_stick.v5code
